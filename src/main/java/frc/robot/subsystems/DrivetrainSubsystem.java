@@ -35,6 +35,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
     double rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
-    SmartDashboard.putNumber("leftTopEncoder", leftTopMotorPos);
+    double averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
+
+    SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
   }
 }
