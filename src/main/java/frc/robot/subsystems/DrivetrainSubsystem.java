@@ -18,6 +18,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public WPI_TalonFX rightTopMotor;
   public WPI_TalonFX rightBottomMotor;
 
+  public double averageMotorPos;
+
   public DrivetrainSubsystem() {
 
     leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
@@ -35,7 +37,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
     double rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
-    double averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
+    averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
 
     SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
   }
