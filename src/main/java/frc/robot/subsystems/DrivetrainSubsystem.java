@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,6 +41,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
 
+    
     SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
+  }
+
+  public void brakeMode() {
+    leftTopMotor.setNeutralMode(NeutralMode.Brake);
+    leftBottomMotor.setNeutralMode(NeutralMode.Brake);
+    rightBottomMotor.setNeutralMode(NeutralMode.Brake);
+    rightTopMotor.setNeutralMode(NeutralMode.Brake);
+  } 
+
+  public void coastMode() {
+    leftTopMotor.setNeutralMode(NeutralMode.Coast);
+    leftBottomMotor.setNeutralMode(NeutralMode.Coast);
+    rightBottomMotor.setNeutralMode(NeutralMode.Coast);
+    rightTopMotor.setNeutralMode(NeutralMode.Coast);
   }
 }
