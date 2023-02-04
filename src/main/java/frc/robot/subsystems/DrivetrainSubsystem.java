@@ -24,6 +24,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public MotorControllerGroup rightMotorGroup;
   public DifferentialDrive diffDrive;
 
+  public double leftTopMotorPos;
+  public double leftBottomMotorPos;
+  public double rightTopMotorPos;
+  public double rightBottomMotorPos;
   public double averageMotorPos;
 
   public DrivetrainSubsystem() {
@@ -44,10 +48,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double leftTopMotorPos = leftTopMotor.getSelectedSensorPosition();
-    double leftBottomMotorPos = leftBottomMotor.getSelectedSensorPosition();
-    double rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
-    double rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
+    leftTopMotorPos = leftTopMotor.getSelectedSensorPosition();
+    leftBottomMotorPos = leftBottomMotor.getSelectedSensorPosition();
+    rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
+    rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
     averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
 
