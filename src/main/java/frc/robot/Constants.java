@@ -21,6 +21,14 @@ public final class Constants {
     public static final int RIGHT_BOTTOM_MOTOR = 15;
   }
 
+  public static class ClawConstants{
+    public static final int LEFT_CLAW_ROLLER_MOTOR = 0;
+    public static final int RIGHT_CLAW_ROLLER_MOTRO = 0;
+
+    public static final int LEFT_CLAW_SOLENOID = 0;
+    public static final int RIGHT_CLAW_SOLENOID = 0;
+  }
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     
