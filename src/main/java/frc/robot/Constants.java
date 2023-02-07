@@ -30,15 +30,28 @@ public final class Constants {
   }
 
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
     
     public static final class OperationBinds{
+
       public static final int L_X_AXIS = 0;
       public static final int L_Y_AXIS = 1;
       public static final int L_TRIGGER = 2;
       public static final int R_TRIGGER = 3;
       public static final int R_X_AXIS = 4;
       public static final int R_Y_AXIS = 5;
+
+      public static final int A_BUTTON = 1;
+      public static final int B_BUTTON = 2;
+      public static final int X_BUTTON = 3;
+      public static final int Y_BUTTON = 4;
+      public static final int LB_BUTTON = 5;
+      public static final int RB_BOTTON = 6;
+      public static final int VIEW_BUTTOM = 7;
+      public static final int MENU_BUTTOM = 8;
+      public static final int L_STICK_BUTTON = 9;
+      public static final int R_STICK_BUTTON = 10;
     }
   }
 }

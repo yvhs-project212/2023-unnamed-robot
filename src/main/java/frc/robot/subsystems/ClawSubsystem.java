@@ -38,7 +38,8 @@ public class ClawSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    leftClawSolenoid.set(true);
+    rightClawSolenoid.set(true);
   }
 
   public void clawIntake(boolean intakeEnable){
@@ -50,6 +51,10 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public void clawOuttake(boolean outtakeEnable){
-    
+    if(outtakeEnable == true){
+      leftClawSolenoid.set(false);
+      rightClawSolenoid.set(false);
+      clawMotorControllerGroup.set(-0.2);
+    }
   }
 }
