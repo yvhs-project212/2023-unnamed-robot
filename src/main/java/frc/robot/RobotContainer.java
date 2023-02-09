@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ClawIntakeCommand;
+import frc.robot.commands.ClawOuttakeCommand;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -37,6 +38,7 @@ public class RobotContainer {
   //Claw Files
   private final ClawSubsystem clawSub = new ClawSubsystem();
   private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawOuttakeCommand clawOuttakeComm = new ClawOuttakeCommand(clawSub);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -63,10 +65,13 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 
+    //Claw Bindings
     //Claw Intake
-    final JoystickButton clawIntake = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+    final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
     clawIntake.whileTrue(clawIntakeComm);
-
+    //Claw Outtake
+    final JoystickButton clawOuttake = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    clawOuttake.whileTrue(clawOuttakeComm);
   }
 
   /**

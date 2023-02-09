@@ -26,6 +26,8 @@ public final class Constants {
     public static final int RIGHT_CLAW_ROLLER_MOTRO = 12;
 
     public static final int CLAW_SOLENOID = 3;
+
+    public static final int CLAW_LIMIT_SWITCH = 0;
   }
 
   public static class OperatorConstants {
