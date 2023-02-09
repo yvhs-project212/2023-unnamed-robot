@@ -15,6 +15,7 @@ import frc.robot.Constants;
 public class ClawSubsystem extends SubsystemBase {
   /** Creates a new ClawSubsystem. */
 
+  //Initializing Motors And Solenoids
   public WPI_TalonSRX leftRollerMotor;
   public WPI_TalonSRX rightRollerMotor;
   public Solenoid ClawSolenoid;
