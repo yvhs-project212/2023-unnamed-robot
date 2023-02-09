@@ -22,11 +22,10 @@ public final class Constants {
   }
 
   public static class ClawConstants{
-    public static final int LEFT_CLAW_ROLLER_MOTOR = 0;
-    public static final int RIGHT_CLAW_ROLLER_MOTRO = 0;
+    public static final int LEFT_CLAW_ROLLER_MOTOR = 14;
+    public static final int RIGHT_CLAW_ROLLER_MOTRO = 12;
 
-    public static final int LEFT_CLAW_SOLENOID = 0;
-    public static final int RIGHT_CLAW_SOLENOID = 0;
+    public static final int CLAW_SOLENOID = 3;
   }
 
   public static class OperatorConstants {
@@ -41,17 +40,6 @@ public final class Constants {
       public static final int R_TRIGGER = 3;
       public static final int R_X_AXIS = 4;
       public static final int R_Y_AXIS = 5;
-
-      public static final int A_BUTTON = 1;
-      public static final int B_BUTTON = 2;
-      public static final int X_BUTTON = 3;
-      public static final int Y_BUTTON = 4;
-      public static final int LB_BUTTON = 5;
-      public static final int RB_BOTTON = 6;
-      public static final int VIEW_BUTTOM = 7;
-      public static final int MENU_BUTTOM = 8;
-      public static final int L_STICK_BUTTON = 9;
-      public static final int R_STICK_BUTTON = 10;
     }
   }
 }

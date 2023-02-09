@@ -17,8 +17,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   public WPI_TalonSRX leftRollerMotor;
   public WPI_TalonSRX rightRollerMotor;
-  public Solenoid leftClawSolenoid;
-  public Solenoid rightClawSolenoid;
+  public Solenoid ClawSolenoid;
   public MotorControllerGroup clawMotorControllerGroup;
 
   public ClawSubsystem() {
@@ -29,8 +28,7 @@ public class ClawSubsystem extends SubsystemBase {
     rightRollerMotor.setInverted(true);
     clawMotorControllerGroup = new MotorControllerGroup(leftRollerMotor, rightRollerMotor);
 
-    leftClawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.LEFT_CLAW_SOLENOID);
-    rightClawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM,Constants.ClawConstants.RIGHT_CLAW_SOLENOID);
+    ClawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_SOLENOID);
 
 
   }
@@ -38,22 +36,19 @@ public class ClawSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    leftClawSolenoid.set(true);
-    rightClawSolenoid.set(true);
+    ClawSolenoid.set(false);
   }
 
   public void clawIntake(boolean intakeEnable){
     if(intakeEnable == true){
-      leftClawSolenoid.set(false);
-      rightClawSolenoid.set(false);
+      ClawSolenoid.set(true);
       clawMotorControllerGroup.set(0.2);
     }
   }
 
   public void clawOuttake(boolean outtakeEnable){
     if(outtakeEnable == true){
-      leftClawSolenoid.set(false);
-      rightClawSolenoid.set(false);
+      ClawSolenoid.set(true);
       clawMotorControllerGroup.set(-0.2);
     }
   }
