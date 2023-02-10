@@ -29,7 +29,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     leftRollerMotor = new WPI_TalonSRX(Constants.ClawConstants.LEFT_CLAW_ROLLER_MOTOR);
     leftRollerMotor.setInverted(false);
-    rightRollerMotor = new WPI_TalonSRX(Constants.ClawConstants.RIGHT_CLAW_ROLLER_MOTRO);
+    rightRollerMotor = new WPI_TalonSRX(Constants.ClawConstants.RIGHT_CLAW_ROLLER_MOTOR);
     rightRollerMotor.setInverted(true);
     clawMotorControllerGroup = new MotorControllerGroup(leftRollerMotor, rightRollerMotor);
 

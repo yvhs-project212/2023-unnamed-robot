@@ -8,8 +8,10 @@ import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOuttakeCommand;
+import frc.robot.commands.ElevatorCommand;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,12 +42,17 @@ public class RobotContainer {
   private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
   private final ClawOuttakeCommand clawOuttakeComm = new ClawOuttakeCommand(clawSub);
 
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorCommand elevatorComm = new ElevatorCommand(elevatorSub);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
 
-    drivetrainSub.setDefaultCommand(arcadeDriveComm);   
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    elevatorSub.setDefaultCommand(elevatorComm);
 
     configureBindings();
   }
@@ -65,7 +72,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 
-    //Claw Bindings
+    //Claw Binds
     //Claw Intake
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
     clawIntake.whileTrue(clawIntakeComm);
