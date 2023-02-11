@@ -5,11 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.TurretSubsytem;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
-public class TurretCommand extends CommandBase {
+public class ControlTurretWithJoystickCommand extends CommandBase {
   /** Creates a new TurretCommand. */
-  public TurretCommand() {
+
+  TurretSubsytem turretsub;
+
+  public ControlTurretWithJoystickCommand(TurretSubsytem turretsub) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.turretsub = turretsub;
+    addRequirements(turretsub);
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +26,9 @@ public class TurretCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    turretsub.rotate(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_X_AXIS));
+  }
 
   // Called once the command ends or is interrupted.
   @Override

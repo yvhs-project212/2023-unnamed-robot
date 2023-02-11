@@ -4,14 +4,55 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import frc.robot.Constants;
+
 
 public class TurretSubsytem extends SubsystemBase {
   /** Creates a new TurretSubsytem. */
-  public TurretSubsytem() {}
+
+  public WPI_TalonFX turretMotor;
+  public double turretMotorPos;
+  public DigitalInput leftLimitSwitch;
+  public DigitalInput rightLimitSwitch;
+
+  public TurretSubsytem() {
+    turretMotor = new WPI_TalonFX(Constants.TurretConstants.TURRET_MOTOR);
+    turretMotor.setInverted(true);
+    turretMotor.setNeutralMode(NeutralMode.Brake);   
+    leftLimitSwitch = new DigitalInput(Constants.TurretConstants.LEFT_LIMITSWITCH);
+    rightLimitSwitch = new DigitalInput(Constants.TurretConstants.RIGHT_LIMITSWITCH);
+
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    turretMotorPos = turretMotor.getSelectedSensorPosition();
+    SmartDashboard.putNumber("turretMotorPosition", Math.floor(100*turretMotorPos+0.5)/100.0);
   }
+
+  public void rotate(double turretSpeed) {
+    if (turretSpeed < 0){
+      if (leftLimitSwitch.get()){
+        turretMotor.set(0);
+      } else {
+        turretMotor.set(turretSpeed * 0.4);
+      }
+    } else {
+      if (rightLimitSwitch.get()){
+        turretMotor.set(0);
+      } else {
+        turretMotor.set(turretSpeed * 0.4);
+      }
+    }
+  }
+
+
 }

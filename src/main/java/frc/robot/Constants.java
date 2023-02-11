@@ -22,6 +22,24 @@ public final class Constants {
   }
 
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
+
+    public static final class OperationBinds{
+      public static final int L_X_AXIS = 0;
+      public static final int L_Y_AXIS = 1;
+      public static final int L_TRIGGER = 2;
+      public static final int R_TRIGGER = 3;
+      public static final int R_X_AXIS = 4;
+      public static final int R_Y_AXIS = 5;
+    }
+  }
+
+
+  public static class TurretConstants{
+    public static final int TURRET_MOTOR = 0;
+    public static final int LEFT_LIMITSWITCH = 1;
+    public static final int RIGHT_LIMITSWITCH = 2;
+    
   }
 }
