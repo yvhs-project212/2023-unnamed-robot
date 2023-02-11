@@ -10,7 +10,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class ArcadeDriveCommand extends CommandBase {
-  /** Creates a new ArcadeDriveCommand. */
 
   DrivetrainSubsystem drivetrainSub;
 
