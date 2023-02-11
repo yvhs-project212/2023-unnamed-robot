@@ -37,9 +37,9 @@ public class NavxSubsystem extends SubsystemBase {
     roll = gyroScope.getRoll();
     // Sets double methods to the gyroscope values
 
-    SmartDashboard.putNumber("YawValue", yaw);
-    SmartDashboard.putNumber("PitchValue", pitch);
-    SmartDashboard.putNumber("RollValue", roll);
+    SmartDashboard.putNumber("YawValue", Math.floor(100*yaw+.5)/100.0);
+    SmartDashboard.putNumber("PitchValue", Math.floor(100*pitch+.5)/100.0);
+    SmartDashboard.putNumber("RollValue", Math.floor(100*roll+.5)/100.0);
     // Displays yaw, pitch, and roll values onto smartdashboard
 
     SmartDashboard.putNumber("getWorldLinearAccelX", Math.floor(100*worldLinearAccelX+0.5)/100.0);
