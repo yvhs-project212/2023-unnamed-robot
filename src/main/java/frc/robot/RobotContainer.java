@@ -8,7 +8,7 @@ import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOuttakeCommand;
-import frc.robot.commands.ElevatorCommand;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -44,7 +44,7 @@ public class RobotContainer {
 
   //Elevator Files
   private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
-  private final ElevatorCommand elevatorComm = new ElevatorCommand(elevatorSub);
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -52,7 +52,7 @@ public class RobotContainer {
     // Configure the trigger bindings
 
     drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    elevatorSub.setDefaultCommand(elevatorComm);
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
 
     configureBindings();
   }

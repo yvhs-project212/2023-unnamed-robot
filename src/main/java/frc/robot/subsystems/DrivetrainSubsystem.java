@@ -58,7 +58,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
   }
 
-  public void driveWithJoysticks(double throttle, double turn, double maxOutput){
+  public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn, double maxOutput){
+    double throttle = rightThrottle - leftThrottle;
     if(throttle>=0.9 || throttle<=-0.9 || turn>=0.9 || turn<=-0.9){
       maxOutput = 0.8;
   

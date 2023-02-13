@@ -15,15 +15,15 @@ package frc.robot;
 public final class Constants {
 
   public static class DrivetrainConstants{
-    public static final int LEFT_TOP_MOTOR = 1;
-    public static final int LEFT_BOTTOM_MOTOR = 0;
-    public static final int RIGHT_TOP_MOTOR = 12;
-    public static final int RIGHT_BOTTOM_MOTOR = 15;
+    public static final int LEFT_TOP_MOTOR = 0;
+    public static final int LEFT_BOTTOM_MOTOR = 1;
+    public static final int RIGHT_TOP_MOTOR = 2;
+    public static final int RIGHT_BOTTOM_MOTOR = 3;
   }
 
   public static class ClawConstants{
-    public static final int LEFT_CLAW_ROLLER_MOTOR = 14;
-    public static final int RIGHT_CLAW_ROLLER_MOTOR = 12;
+    public static final int LEFT_CLAW_ROLLER_MOTOR = 4;
+    public static final int RIGHT_CLAW_ROLLER_MOTOR = 5;
 
     public static final int CLAW_SOLENOID = 3;
 
@@ -32,6 +32,9 @@ public final class Constants {
 
   public static class ElevatorConstants{
     public static final int ELEVATOR_MOTOR = 0;
+
+    public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 0;
+    public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 0;
   }
 
   public static class OperatorConstants {

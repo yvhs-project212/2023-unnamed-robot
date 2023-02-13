@@ -9,12 +9,12 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorCommand extends CommandBase {
+public class ElevatorLiftWithjoystickCommand extends CommandBase {
   /** Creates a new ElevatorCommand. */
 
   ElevatorSubsystem elevatorSub;
 
-  public ElevatorCommand(ElevatorSubsystem elevatorSub) {
+  public ElevatorLiftWithjoystickCommand(ElevatorSubsystem elevatorSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevatorSub = elevatorSub;
     addRequirements(elevatorSub);
@@ -27,7 +27,7 @@ public class ElevatorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSub.liftWithJoystick(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_Y_AXIS));
+    elevatorSub.elevatorLiftWithJoystick(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_Y_AXIS));
   }
 
   // Called once the command ends or is interrupted.

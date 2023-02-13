@@ -27,7 +27,7 @@ public class ArcadeDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrainSub.driveWithJoysticks(-(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_Y_AXIS)), -(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_X_AXIS)), 0);
+    drivetrainSub.driveWithJoysticks(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_TRIGGER), RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_TRIGGER), -(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_X_AXIS)), 0);
   }
 
   // Called once the command ends or is interrupted.

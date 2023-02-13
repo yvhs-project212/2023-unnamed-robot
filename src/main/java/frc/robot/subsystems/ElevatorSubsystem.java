@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,12 +17,27 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public WPI_TalonFX elevatorMotor;
 
+  public DigitalInput upperLimitSwitch;
+  public boolean upperLimitSwitchEnable;
+  public DigitalInput bottomLimitSwitch;
+  public boolean bottomLimitSwitchEnable;
+
   public double elevatorMotorPos;
 
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.ELEVATOR_MOTOR);
     elevatorMotor.setInverted(true);
     elevatorMotor.setNeutralMode(NeutralMode.Brake);
+
+    upperLimitSwitch = new DigitalInput(Constants.ElevatorConstants.UPPER_ELEVATOR_LIMIT_SWITCH);
+    if(upperLimitSwitch.get()){
+      upperLimitSwitchEnable = true;
+    }
+    bottomLimitSwitch = new DigitalInput(Constants.ElevatorConstants.BOTTOM_ELEVATOR_LIMIT_SWITCH);
+    if(bottomLimitSwitch.get()){
+      bottomLimitSwitchEnable = true;
+    }
+
 
     elevatorMotorPos = elevatorMotor.getSelectedSensorPosition();
     SmartDashboard.putNumber("ElevatorMotorPosition", elevatorMotorPos);
@@ -32,7 +48,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void liftWithJoystick(double elevatorSpeed){
-    elevatorMotor.set(elevatorSpeed * 0.4);
+  public void elevatorLiftWithJoystick(double elevatorSpeed){
+    elevatorMotor.set(0);
+    if(upperLimitSwitchEnable != true){
+      if (elevatorSpeed > 0){
+        elevatorMotor.set(elevatorSpeed * 0.4);
+      }
+    }
+
+    if(bottomLimitSwitchEnable != true){
+      if(elevatorSpeed < 0){
+        elevatorMotor.set(elevatorSpeed * 0.4);
+      }
+    }
   }
 }
