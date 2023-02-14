@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new Arm. */
@@ -15,10 +16,13 @@ public class ArmSubsystem extends SubsystemBase {
   public WPI_TalonFX armMotor;
   public double armMotorPos;
 
-  public ArmSubsystem() {}
+  public ArmSubsystem() {
+    armMotor = new WPI_TalonFX(Constants.ArmConstants.ARM_MOTOR);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  
   }
 }
