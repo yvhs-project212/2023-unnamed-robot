@@ -7,7 +7,8 @@ package frc.robot;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ClawIntakeCommand;
-import frc.robot.commands.ClawOuttakeCommand;
+import frc.robot.commands.ClawOpenCommand;
+import frc.robot.commands.ClawRollersOuttakeCommand;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -40,7 +41,8 @@ public class RobotContainer {
   //Claw Files
   private final ClawSubsystem clawSub = new ClawSubsystem();
   private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-  private final ClawOuttakeCommand clawOuttakeComm = new ClawOuttakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
   //Elevator Files
   private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
@@ -76,9 +78,12 @@ public class RobotContainer {
     //Claw Intake
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
     clawIntake.whileTrue(clawIntakeComm);
-    //Claw Outtake
-    final JoystickButton clawOuttake = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
-    clawOuttake.whileTrue(clawOuttakeComm);
+    //Claw Rollers Outtake
+    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
+    //Claw Open
+    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    clawOpen.whileTrue(clawOpenComm);
   }
 
   /**

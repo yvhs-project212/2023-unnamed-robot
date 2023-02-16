@@ -7,9 +7,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,7 +21,7 @@ public class ClawSubsystem extends SubsystemBase {
   //Initializing Motors And Solenoids
   public WPI_TalonSRX leftRollerMotor;
   public WPI_TalonSRX rightRollerMotor;
-  public Solenoid clawSolenoid;
+  public DoubleSolenoid clawDoubleSolenoid;
   public MotorControllerGroup clawMotorControllerGroup;
 
   public DigitalInput clawLimitSwitch;
@@ -33,38 +35,47 @@ public class ClawSubsystem extends SubsystemBase {
     rightRollerMotor.setInverted(true);
     clawMotorControllerGroup = new MotorControllerGroup(leftRollerMotor, rightRollerMotor);
 
-    clawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_SOLENOID);
-    clawSolenoid.set(false);
+    clawDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_DOUBLE_SOLENOID_FORWARD, Constants.ClawConstants.CLAW_DOUBLE_SOLENOID_REVERSE);
+    clawDoubleSolenoid.set(Value.kForward);
 
     clawLimitSwitch = new DigitalInput(Constants.ClawConstants.CLAW_LIMIT_SWITCH);
-    if (clawLimitSwitch.get()) {
-      clawLimitEnable = true;
-    }
+ 
   }
 
 
   @Override
   public void periodic() {
-    //clawSolenoid.set(false);
+    if (clawLimitSwitch.get()){
+      clawLimitEnable = true;
+    } else{
+      clawLimitEnable = false;
+    }
+    SmartDashboard.putBoolean("clawLimitSwitch", clawLimitEnable);
   }
 
   public void clawIntake(){
-    if(clawLimitEnable == false){
-        clawSolenoid.set(true);
-        clawMotorControllerGroup.set(0.2);
+    if(clawLimitSwitch.get()){
+        clawDoubleSolenoid.set(Value.kReverse);
+        clawMotorControllerGroup.set(-0.5);
     } else {
-        clawSolenoid.set(false);
+        clawDoubleSolenoid.set(Value.kForward);
         clawMotorControllerGroup.set(0);
     }
   }
 
-  public void clawOuttake(){
-      clawSolenoid.set(true);
-      clawMotorControllerGroup.set(-0.2);
+  public void clawOpen(){
+    clawDoubleSolenoid.set(Value.kReverse);
   }
 
-  public void clawStop(){
-    clawSolenoid.set(false);
+  public void clawRollersOuttake(){
+    clawMotorControllerGroup.set(0.5);
+  }
+
+  public void clawClose(){
+    clawDoubleSolenoid.set(Value.kForward);
+  }
+
+  public void clawRollersStop(){
     clawMotorControllerGroup.set(0);
   }
 }

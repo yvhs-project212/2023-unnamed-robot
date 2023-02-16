@@ -38,8 +38,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
 
     leftMotorGroup = new MotorControllerGroup(leftTopMotor, leftBottomMotor);
-    leftMotorGroup.setInverted(true);
+    leftMotorGroup.setInverted(false);
     rightMotorGroup = new MotorControllerGroup(rightTopMotor, rightBottomMotor);
+    rightMotorGroup.setInverted(true);
 
     diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
@@ -58,18 +59,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
   }
 
-  public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn, double maxOutput){
+  public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
     double throttle = rightThrottle - leftThrottle;
-    if(throttle>=0.9 || throttle<=-0.9 || turn>=0.9 || turn<=-0.9){
-      maxOutput = 0.8;
-  
-    } else {
-      maxOutput = 0.6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
-
-    }
-    SmartDashboard.putNumber("MaxOutput", maxOutput);
-    double forwardSpeed = throttle * maxOutput;
-    double turnSpeed = turn * maxOutput;
+    double forwardSpeed = throttle * 0.8;
+    double turnSpeed = turn * 0.8;
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
 }

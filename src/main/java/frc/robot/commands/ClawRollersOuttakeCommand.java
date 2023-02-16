@@ -5,19 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 
-public class ArcadeDriveCommand extends CommandBase {
+public class ClawRollersOuttakeCommand extends CommandBase {
+  /** Creates a new ClawOuttakeCommand. */
+  
+  ClawSubsystem clawSub;
 
-  DrivetrainSubsystem drivetrainSub;
-
-  public ArcadeDriveCommand(DrivetrainSubsystem drivetrainSub) {
+  public ClawRollersOuttakeCommand(ClawSubsystem clawSub) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    this.drivetrainSub = drivetrainSub;
-    addRequirements(drivetrainSub);
+    this.clawSub = clawSub;
+    addRequirements(clawSub);
+
   }
 
   // Called when the command is initially scheduled.
@@ -27,12 +27,14 @@ public class ArcadeDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrainSub.driveWithJoysticks(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_TRIGGER), RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_TRIGGER), -(RobotContainer.driverController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_X_AXIS)));
+    clawSub.clawRollersOuttake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    clawSub.clawRollersStop();
+  }
 
   // Returns true when the command should end.
   @Override
