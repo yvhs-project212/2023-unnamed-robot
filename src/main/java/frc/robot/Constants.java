@@ -32,7 +32,7 @@ public final class Constants {
   }
 
   public static class ElevatorConstants{
-    public static final int ELEVATOR_MOTOR = 0;
+    public static final int ELEVATOR_MOTOR = 10;
 
     public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 3;
     public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;

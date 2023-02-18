@@ -46,9 +46,9 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (clawLimitSwitch.get()){
-      clawLimitEnable = true;
-    } else{
       clawLimitEnable = false;
+    } else{
+      clawLimitEnable = true;
     }
     SmartDashboard.putBoolean("clawLimitSwitch", clawLimitEnable);
   }

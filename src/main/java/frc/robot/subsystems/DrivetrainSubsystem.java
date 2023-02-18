@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -37,11 +38,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_TOP_MOTOR);
     rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
 
+    //Group two left motors together and set their neutral mode as brake mode.
     leftMotorGroup = new MotorControllerGroup(leftTopMotor, leftBottomMotor);
-    leftMotorGroup.setInverted(false);
-    rightMotorGroup = new MotorControllerGroup(rightTopMotor, rightBottomMotor);
-    rightMotorGroup.setInverted(true);
+    leftMotorGroup.setInverted(true);
+    leftTopMotor.setNeutralMode(NeutralMode.Brake);
+    leftBottomMotor.setNeutralMode(NeutralMode.Brake);
 
+    //Group two right motors together and set their neutral mode as brake mode.
+    rightMotorGroup = new MotorControllerGroup(rightTopMotor, rightBottomMotor);
+    rightMotorGroup.setInverted(false);
+    rightBottomMotor.setNeutralMode(NeutralMode.Brake);
+    rightTopMotor.setNeutralMode(NeutralMode.Brake);
+
+    //Created differential drive by using left motors and right motors.
     diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
   }
@@ -49,16 +58,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    //Get the average motor encoder value.
     leftTopMotorPos = leftTopMotor.getSelectedSensorPosition();
     leftBottomMotorPos = leftBottomMotor.getSelectedSensorPosition();
     rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
     rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
     averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
+    Math.floor(averageMotorPos + 5);
 
     SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
   }
 
+  //Arcade drive methods.
   public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
     double throttle = rightThrottle - leftThrottle;
     double forwardSpeed = throttle * 0.8;
