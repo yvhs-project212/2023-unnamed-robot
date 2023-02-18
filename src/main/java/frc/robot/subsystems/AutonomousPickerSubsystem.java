@@ -33,7 +33,7 @@ public class AutonomousPickerSubsystem extends SubsystemBase {
   }
 
   public AutonomousMode getAutonomousMode() {
-    return autonomousModeChooser.getSelected(); 
+    return autonomousModeChooser.getSelected();
   }
 
   @Override

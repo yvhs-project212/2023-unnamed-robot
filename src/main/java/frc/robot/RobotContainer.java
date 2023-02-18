@@ -4,12 +4,13 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.NavxSubsystem;
+import frc.robot.subsystems.NavxSubsytem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.ArcadeDriveCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,7 +24,13 @@ public class RobotContainer {
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
-  private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
+  // Drivetrain Files
+  private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
+  private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+  
+
+
+  private final NavxSubsytem m_NavxSubsytem = new NavxSubsytem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
