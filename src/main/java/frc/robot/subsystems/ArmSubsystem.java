@@ -40,5 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
     } else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
       armMotor.set(0.5);
       armMotor.setInverted(true);
+    }
  }
 }
+
+
