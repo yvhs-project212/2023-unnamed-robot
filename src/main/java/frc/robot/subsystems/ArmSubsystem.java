@@ -35,9 +35,9 @@ public class ArmSubsystem extends SubsystemBase {
   
   public void armWithPOV(XboxController controller) {
     if ((controller.getPOV() == 0)) {               // Up D-Pad makes arm go up
-      armMotor.set(0.5);
+      armMotor.set(-0.5);
     } else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
-      armMotor.set(-0.5); 
+      armMotor.set(0.5); 
     }
   }
 
