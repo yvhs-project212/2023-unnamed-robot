@@ -48,6 +48,6 @@ public final class Constants {
   }
 
   public static class ArmConstants{
-    public static final int ARM_MOTOR = 4;
+    public static final int ARM_MOTOR = 10;
   }
 }
