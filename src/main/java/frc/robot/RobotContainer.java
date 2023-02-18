@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArmCommands;
+import frc.robot.subsystems.ArmSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -19,8 +21,12 @@ import frc.robot.Constants.OperatorConstants;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
+
+  public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
+  public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
+
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -45,6 +51,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     
+    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
