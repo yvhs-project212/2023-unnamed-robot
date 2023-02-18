@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.subsystems.ArmSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,6 +19,7 @@ import frc.robot.subsystems.ArmSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -29,10 +31,17 @@ public class RobotContainer {
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
   }
 
   /**
