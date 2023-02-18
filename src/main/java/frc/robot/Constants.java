@@ -21,6 +21,13 @@ public final class Constants {
     public static final int RIGHT_BOTTOM_MOTOR = 3;
   }
 
+  public static class ElevatorConstants{
+    public static final int ELEVATOR_MOTOR = 10;
+
+    public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 3;
+    public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;
+  }
+
   public static class OperatorConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
