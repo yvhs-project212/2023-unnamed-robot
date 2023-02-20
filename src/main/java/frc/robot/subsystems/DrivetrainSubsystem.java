@@ -30,6 +30,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double rightTopMotorPos;
   public double rightBottomMotorPos;
   public double averageMotorPos;
+  public double roundedMotorPos;
 
   public DrivetrainSubsystem() {
 
@@ -39,8 +40,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
 
     //Group two left motors together and set their neutral mode as brake mode.
+    leftTopMotor.setInverted(true);
+    leftBottomMotor.setInverted(true);
     leftMotorGroup = new MotorControllerGroup(leftTopMotor, leftBottomMotor);
-    leftMotorGroup.setInverted(true);
     leftTopMotor.setNeutralMode(NeutralMode.Brake);
     leftBottomMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -66,9 +68,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
     averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
-    Math.floor(averageMotorPos + 5);
+    roundedMotorPos = Math.floor(averageMotorPos + 0.5);
 
-    SmartDashboard.putNumber("AverageMotorEncoderPositionValue", averageMotorPos);
+    SmartDashboard.putNumber("dtPos", roundedMotorPos);
   }
 
   //Arcade drive methods.
