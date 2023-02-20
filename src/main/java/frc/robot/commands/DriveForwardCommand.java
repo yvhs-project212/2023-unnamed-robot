@@ -4,23 +4,19 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.AutonomousPickerSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.NavxSubsystem;
+import frc.robot.subsystems.TurretSubsytem;
 
-/** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
-
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+public class DriveForwardCommand extends CommandBase {
+  /** Creates a new DriveForwardCommand. */
+  public DriveForwardCommand(NavxSubsystem navX, TurretSubsytem turret, DrivetrainSubsystem driveTrain, AutonomousPickerSubsystem autonomousPicker) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+  }
+
+  public DriveForwardCommand(NavxSubsystem navX, TurretSubsytem turret, DrivetrainSubsystem driveTrain) {
   }
 
   // Called when the command is initially scheduled.

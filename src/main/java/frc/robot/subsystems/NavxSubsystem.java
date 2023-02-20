@@ -4,9 +4,9 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj2.command.SubsystemBase; 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.Math;
 
@@ -14,39 +14,40 @@ public class NavxSubsystem extends SubsystemBase {
   /** Creates a new Navx. */
   
   private AHRS gyroScope;
+  
   private double yaw;
   private double pitch;
   private double roll;
-  private double worldLinearAccelX;
-  private double worldLinearAccelY;
-  private double worldLinearAccelZ;
-  // Creates double methods and a gyroscope method 
-   
+  private double wordLinearAccelX;
+  private double wordLinearAccelY;
+  private double wordLinearAccelZ;
+  
+  
   public NavxSubsystem() {
     gyroScope = new AHRS(SPI.Port.kMXP);
-    // Configures "gyroscope" to the nav x port
   }
 
   @Override
   public void periodic() {
-    worldLinearAccelX = gyroScope.getWorldLinearAccelX();
-    worldLinearAccelY = gyroScope.getWorldLinearAccelY();
-    worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
+    wordLinearAccelX = gyroScope.getWorldLinearAccelX();
+    wordLinearAccelY = gyroScope.getWorldLinearAccelY();
+    wordLinearAccelZ = gyroScope.getWorldLinearAccelZ();
     yaw = gyroScope.getYaw();
     pitch = gyroScope.getPitch();
-    roll = gyroScope.getRoll();
-    // Sets double methods to the gyroscope values
+    roll = gyroScope.getRoll(); 
 
-    SmartDashboard.putNumber("YawValue", Math.floor(100*yaw+.5)/100.0);
-    SmartDashboard.putNumber("PitchValue", Math.floor(100*pitch+.5)/100.0);
-    SmartDashboard.putNumber("RollValue", Math.floor(100*roll+.5)/100.0);
-    // Displays yaw, pitch, and roll values onto smartdashboard
+     
+    SmartDashboard.putNumber("YawValue", Math.floor(100*yaw+0.5)/100.0);
+    SmartDashboard.putNumber("PitchValue", Math.floor(100*pitch+0.5)/100.0);
+    SmartDashboard.putNumber("RollValue", Math.floor(100*roll+0.5)/100.0);
+    //Displays value of Yaw, Pitch, and Roll 
 
-    SmartDashboard.putNumber("getWorldLinearAccelX", Math.floor(100*worldLinearAccelX+0.5)/100.0);
-    SmartDashboard.putNumber("getWorldLinearAccelY", Math.floor(100*worldLinearAccelY+0.5)/100.0);
-    SmartDashboard.putNumber("getWorldLinearAccelZ", Math.floor(100*worldLinearAccelZ+0.5)/100.0);
-    // Displays accel values of X, Y, and Z and rounds it up to the nearest hundredth
-          
+
+    SmartDashboard.putNumber("getWorldLinearAccelX", Math.floor(100*wordLinearAccelX+0.5)/100.0);
+    SmartDashboard.putNumber("getWorldLinearAccelY", Math.floor(100*wordLinearAccelY+0.5)/100.0);
+    SmartDashboard.putNumber("getWorldLinearAccelZ", Math.floor(100*wordLinearAccelZ+0.5)/100.0);
+    //Displays Accel values of X, Y, and Z
+
     // This method will be called once per scheduler run
   }
 }
