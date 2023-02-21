@@ -25,10 +25,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double elevatorMotorPos;
 
   public ElevatorSubsystem() {
+    //Setting up elevator motor.
     elevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.ELEVATOR_MOTOR);
     elevatorMotor.setInverted(true);
     elevatorMotor.setNeutralMode(NeutralMode.Brake);
 
+    //Setting up the top and the bottom limit switches.
     upperLimitSwitch = new DigitalInput(Constants.ElevatorConstants.UPPER_ELEVATOR_LIMIT_SWITCH);
     if(upperLimitSwitch.get()){
       upperLimitSwitchEnable = true;
@@ -38,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       bottomLimitSwitchEnable = true;
     }
 
-
+    //Read the elevator motor encoder position value.
     elevatorMotorPos = elevatorMotor.getSelectedSensorPosition();
     SmartDashboard.putNumber("ElevatorMotorPosition", elevatorMotorPos);
   }
@@ -48,6 +50,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //Move elevator by using joystick methods.
   public void elevatorLiftWithJoystick(double elevatorSpeed){
     elevatorMotor.set(0);
     if(upperLimitSwitchEnable != true){
