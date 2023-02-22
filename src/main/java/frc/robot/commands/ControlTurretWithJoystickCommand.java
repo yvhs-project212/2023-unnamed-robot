@@ -27,7 +27,7 @@ public class ControlTurretWithJoystickCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turretsub.rotate(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_X_AXIS));
+    turretsub.rotate(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_X_AXIS));
   }
 
   // Called once the command ends or is interrupted.
