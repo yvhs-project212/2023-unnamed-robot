@@ -6,18 +6,11 @@ package frc.robot;
 
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ClawIntakeCommand;
-import frc.robot.commands.ClawOpenCommand;
-import frc.robot.commands.ClawRollersOuttakeCommand;
-import frc.robot.commands.ElevatorLiftWithjoystickCommand;
-import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -38,23 +31,11 @@ public class RobotContainer {
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
 
-  //Claw Files
-  private final ClawSubsystem clawSub = new ClawSubsystem();
-  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
-
-  //Elevator Files
-  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
-  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
-
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
 
     drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    elevatorSub.setDefaultCommand(elevatorLiftComm);
 
     configureBindings();
   }
@@ -74,16 +55,6 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 
-    //Claw Binds
-    //Claw Intake
-    final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
-    clawIntake.whileTrue(clawIntakeComm);
-    //Claw Rollers Outtake
-    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
-    clawOpen.whileTrue(clawOpenComm);
-    //Claw Open
-    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
-    clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
   }
 
   /**
