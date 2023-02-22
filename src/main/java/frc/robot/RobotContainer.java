@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -26,6 +28,10 @@ public class RobotContainer {
 
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
+
+  // Drivetrain Files
+  private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
+  private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
@@ -51,6 +57,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
     arm.setDefaultCommand(armWithDPadsCmd);
   }
 
