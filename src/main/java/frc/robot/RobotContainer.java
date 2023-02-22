@@ -5,16 +5,19 @@
 package frc.robot;
 
 import frc.robot.subsystems.NavxSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.TurretConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
+import frc.robot.commands.ControlTurretWithJoystickCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 /**
@@ -34,6 +37,9 @@ public class RobotContainer {
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
+  public static TurretSubsystem turret = new TurretSubsystem();
+  private final ControlTurretWithJoystickCommand turretWithJoystick = new ControlTurretWithJoystickCommand(turret);
+
     //Claw Files
     private final ClawSubsystem clawSub = new ClawSubsystem();
     private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
@@ -44,6 +50,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    turret.setDefaultCommand(turretWithJoystick);
   }
 
   /**
