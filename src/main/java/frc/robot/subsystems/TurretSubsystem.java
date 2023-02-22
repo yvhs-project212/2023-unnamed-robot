@@ -51,8 +51,7 @@ public class TurretSubsystem extends SubsystemBase {
       } else {
         turretMotor.set(0);
       }
+      // If joystick value is negative run if statement but if value is posotive run else statement
     }
   }
-
-
 }

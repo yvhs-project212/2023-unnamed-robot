@@ -28,6 +28,7 @@ public class ControlTurretWithJoystickCommand extends CommandBase {
   @Override
   public void execute() {
     turretsub.rotate(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_X_AXIS));
+    //Line 30 Sets the value of turretSpeed to the value of the X-Axis of the right joystick 
   }
 
   // Called once the command ends or is interrupted.
