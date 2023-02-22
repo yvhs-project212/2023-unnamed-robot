@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.NavxSubsystem;
+import frc.robot.subsystems.TurretSubsytem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,6 +25,9 @@ public class RobotContainer {
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
+
+  private final TurretSubsytem m_TurretSubsytem = new TurretSubsytem();
+  private final 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
