@@ -52,7 +52,7 @@ public final class Constants {
   }
 
   public static class TurretConstants{
-    public static final int TURRET_MOTOR = 8;
+    public static final int TURRET_MOTOR = 6;
     public static final int LEFT_LIMITSWITCH = 1;
     public static final int RIGHT_LIMITSWITCH = 2;
     
