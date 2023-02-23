@@ -28,6 +28,11 @@ public class StageOneBalancing extends CommandBase {
 
 
 
+  private void addCommands(PrintCommand printCommand) {
+  }
+
+
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

@@ -12,45 +12,54 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.AutonomousPickerSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.NavxSubsystem;
 
 public class AutonomousPickerCommand extends SubsystemBase {
   /** Creates a new AutonomousPickerCommand. */
 
-  private final AutonomousPickerSubsystem autonomousPicker;
+  private final AutonomousPickerSubsystem autonomousSub;
   private final DrivetrainSubsystem driveTrain;
-  private final NavxSubsystem navX;
+  private final NavxSubsystem m_NavxSubsystem;
 
-  public AutonomousPickerCommand(AutonomousPickerSubsystem autonomousPicker, DrivetrainSubsystem driveTrain, 
-  NavxSubsystem navX) {
 
-    this.autonomousPicker = autonomousPicker;
+
+  public AutonomousPickerCommand(AutonomousPickerSubsystem autonomousSub, NavxSubsystem m_NavxSubsystem, ClawSubsystem clawSub, 
+  ArmSubsystem arm, DrivetrainSubsystem driveTrain) {
+
+    this.autonomousSub = autonomousSub;
     this.driveTrain = driveTrain;
-    this.navX = navX;
+    this.m_NavxSubsystem = m_NavxSubsystem;
 
-    addRequirements(autonomousPicker, driveTrain, navX);
-  }
-
-  private void addRequirements(AutonomousPickerSubsystem autonomousPicker2, DrivetrainSubsystem driveTrain2,
-      NavxSubsystem navX2) {
+    addRequirements(autonomousSub, driveTrain, m_NavxSubsystem);
   }
 
   
+  private void addRequirements(AutonomousPickerSubsystem autonomousSub2, DrivetrainSubsystem driveTrain2,
+      NavxSubsystem m_NavxSubsystem2) {
+  }
+
+
+
+
   public Command runAutonomous() {
     Command autoCommands = new SequentialCommandGroup();
 
-    switch(autonomousPicker.getAutonomousMode()) {
+    switch(autonomousSub.getAutonomousMode()) {
       case NONE: 
         System.out.println("No Autonomous");
-        autoCommands = new SequentialCommandGroup( new StageOneBalancing (driveTrain, navX)
+        autoCommands = new SequentialCommandGroup(
         );
         break;
         
-      case TWO:
+      case ONE:
         System.out.println("First Autonomous");
-        autoCommands = new SequentialCommandGroup();
+        autoCommands = new SequentialCommandGroup(
+          new StageOneBalancing (driveTrain, m_NavxSubsystem)
+        );
         break;
         
       default:
