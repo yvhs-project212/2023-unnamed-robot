@@ -53,14 +53,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   //Move elevator by using joystick methods.
   public void elevatorLiftWithJoystick(double elevatorSpeed){
     elevatorMotor.set(0);
-    if(upperLimitSwitchEnable != true){
-      if (elevatorSpeed > 0){
+    if(upperLimitSwitch.get()){
+      if (elevatorSpeed < 0){
         elevatorMotor.set(elevatorSpeed * 0.4);
       }
     }
 
-    if(bottomLimitSwitchEnable != true){
-      if(elevatorSpeed < 0){
+    if(bottomLimitSwitch.get()){
+      if(elevatorSpeed > 0){
         elevatorMotor.set(elevatorSpeed * 0.4);
       }
     }
