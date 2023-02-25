@@ -13,6 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final int ROBOT_USING = 2022;
 
   public static class DrivetrainConstants{
     public static final int LEFT_TOP_MOTOR = 0;
