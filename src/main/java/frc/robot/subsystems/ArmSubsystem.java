@@ -11,9 +11,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.XboxController;
 
+
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new Arm. */
 
+  public DigitalInput armTopLimitSwitch;
+  public DigitalInput armBottomLimitSwitch;
   public WPI_TalonFX armMotor;
   public double armMotorPos;
   public double armDown;
@@ -24,6 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new WPI_TalonFX(Constants.ArmConstants.ARM_MOTOR);
     armMotor.setNeutralMode(NeutralMode.Brake);
+    armTopLimitSwitch = new DigitalInput(Constants.ArmConstants.ARM_TOP_LIMITSWITCH);
+    armBottomLimitSwitch = new DigitalInput(Constants.ArmConstants.ARM_BOTTOM_LIMITSWITCH);
 
   }
 
@@ -36,9 +41,14 @@ public class ArmSubsystem extends SubsystemBase {
   
   public void armWithPOV(XboxController controller) {
     if ((controller.getPOV() == 0)) {               // Up D-Pad makes arm go up
+      if (armTopLimitSwitch.get()){
       armMotor.set(-0.5);
-    } else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
+      }
+    } 
+    else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
+      if (armBottomLimitSwitch.get()){
       armMotor.set(0.5); 
+      }
     }
   }
 

@@ -49,5 +49,7 @@ public final class Constants {
 
   public static class ArmConstants{
     public static final int ARM_MOTOR = 10;
+    public static final int ARM_TOP_LIMITSWITCH = 11;
+    public static final int ARM_BOTTOM_LIMITSWITCH = 12;
   }
 }
