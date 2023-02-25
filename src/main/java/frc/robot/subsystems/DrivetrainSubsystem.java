@@ -80,4 +80,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double turnSpeed = turn * 0.8;
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
+
+  public void setMotors(double leftTopMotor, double leftBottomMotor, double rightTopMotor, double rightBottomMotor) {
+  }
 }

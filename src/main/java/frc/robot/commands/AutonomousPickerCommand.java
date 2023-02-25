@@ -58,7 +58,7 @@ public class AutonomousPickerCommand extends SubsystemBase {
       case ONE:
         System.out.println("First Autonomous");
         autoCommands = new SequentialCommandGroup(
-          new StageOneBalancing (driveTrain, m_NavxSubsystem)
+          new DriveForwardCommand(driveTrain)
         );
         break;
         
