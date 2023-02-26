@@ -6,8 +6,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -18,8 +21,39 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public WPI_TalonFX rightTopMotor;
   public WPI_TalonFX rightBottomMotor;
 
+  public MotorControllerGroup leftMotorGroup;
+  public MotorControllerGroup rightMotorGroup;
+  public DifferentialDrive diffDrive;
+
+  public double leftTopMotorPos;
+  public double leftBottomMotorPos;
+  public double rightTopMotorPos;
+  public double rightBottomMotorPos;
+  public double averageMotorPos;
+  public double roundedMotorPos;
+
   public DrivetrainSubsystem() {
 
+    leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
+    leftBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_BOTTOM_MOTOR);
+    rightTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_TOP_MOTOR);
+    rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
+
+    //Group two left motors together and set their neutral mode as brake mode.
+    leftTopMotor.setInverted(true);
+    leftBottomMotor.setInverted(true);
+    leftMotorGroup = new MotorControllerGroup(leftTopMotor, leftBottomMotor);
+    leftTopMotor.setNeutralMode(NeutralMode.Brake);
+    leftBottomMotor.setNeutralMode(NeutralMode.Brake);
+
+    //Group two right motors together and set their neutral mode as brake mode.
+    rightMotorGroup = new MotorControllerGroup(rightTopMotor, rightBottomMotor);
+    rightMotorGroup.setInverted(false);
+    rightBottomMotor.setNeutralMode(NeutralMode.Brake);
+    rightTopMotor.setNeutralMode(NeutralMode.Brake);
+
+    //Created differential drive by using left motors and right motors.
+    diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
     leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
     leftBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_BOTTOM_MOTOR);
     rightTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_TOP_MOTOR);
@@ -30,11 +64,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double leftTopMotorPos = leftTopMotor.getSelectedSensorPosition();
-    double leftBottomMotorPos = leftBottomMotor.getSelectedSensorPosition();
-    double rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
-    double rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
 
-    SmartDashboard.putNumber("leftTopEncoder", leftTopMotorPos);
+    //Get the average motor encoder value.
+    leftTopMotorPos = leftTopMotor.getSelectedSensorPosition();
+    leftBottomMotorPos = leftBottomMotor.getSelectedSensorPosition();
+    rightTopMotorPos = rightTopMotor.getSelectedSensorPosition();
+    rightBottomMotorPos = rightTopMotor.getSelectedSensorPosition();
+
+    averageMotorPos = (leftTopMotorPos + leftBottomMotorPos + rightTopMotorPos + rightBottomMotorPos) / 4;
+    roundedMotorPos = Math.floor(averageMotorPos + 0.5);
+
+    SmartDashboard.putNumber("dtPos", roundedMotorPos);
+  }
+
+  //Arcade drive methods.
+  public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
+    double throttle = rightThrottle - leftThrottle;
+    double forwardSpeed = throttle * 0.8;
+    double turnSpeed = turn * 0.8;
+    diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
 }

@@ -4,16 +4,21 @@
 
 package frc.robot;
 
-import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.NavxSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ClawIntakeCommand;
+import frc.robot.commands.ClawOpenCommand;
+import frc.robot.commands.ClawRollersOuttakeCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -22,12 +27,24 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
+
+  public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
+  public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
+
+  // Drivetrain Files
+  private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
+  private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+
+  private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
+
+    //Claw Files
+    private final ClawSubsystem clawSub = new ClawSubsystem();
+    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -46,12 +63,24 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+  
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    //Claw Binds
+    //Claw Intake
+    final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
+    clawIntake.whileTrue(clawIntakeComm);
+    //Claw Rollers Outtake
+    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    clawOpen.whileTrue(clawOpenComm);
+    //Claw Open
+    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
+    
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
@@ -59,8 +88,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() { 
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
   }
 }
