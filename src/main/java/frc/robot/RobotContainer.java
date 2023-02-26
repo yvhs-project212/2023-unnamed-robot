@@ -57,7 +57,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    elevatorSub.setDefaultCommand(elevatorLiftComm);
+
   }
 
   /**
@@ -86,9 +86,11 @@ public class RobotContainer {
     //Claw Open
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
-    
+
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
     drivetrainSub.setDefaultCommand(arcadeDriveComm);
     arm.setDefaultCommand(armWithDPadsCmd);
+    
   }
 
   /**
