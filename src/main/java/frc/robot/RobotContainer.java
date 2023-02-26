@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 /**
@@ -23,6 +23,7 @@ import frc.robot.subsystems.ClawSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -34,16 +35,23 @@ public class RobotContainer {
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
-    //Claw Files
-    private final ClawSubsystem clawSub = new ClawSubsystem();
-    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
   }
 
   /**
