@@ -10,12 +10,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+
+import javax.swing.plaf.basic.BasicBorders.ToggleButtonBorder;
+
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
+import frc.robot.commands.ToggleGearShiftCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -28,8 +32,6 @@ import frc.robot.subsystems.ClawSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static ArmSubsystem arm = new ArmSubsystem();
-  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
@@ -37,14 +39,19 @@ public class RobotContainer {
   // Drivetrain Files
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+  private final ToggleGearShiftCommand toggleGearShiftComm = new ToggleGearShiftCommand(drivetrainSub);
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
-    //Claw Files
-    private final ClawSubsystem clawSub = new ClawSubsystem();
-    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+
+  //Arm Flies
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -79,7 +86,11 @@ public class RobotContainer {
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
     
+    //Drivetrain Binds
     drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    final JoystickButton gearToggle = new JoystickButton(driverController, XboxController.Button.kA.value);
+    gearToggle.onTrue(toggleGearShiftComm);
+
     arm.setDefaultCommand(armWithDPadsCmd);
   }
 

@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +26,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public MotorControllerGroup leftMotorGroup;
   public MotorControllerGroup rightMotorGroup;
   public DifferentialDrive diffDrive;
+
+  public Solenoid gearShiftSolenoid;
+  public boolean onHighGear;
 
   public double leftTopMotorPos;
   public double leftBottomMotorPos;
@@ -52,6 +57,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightBottomMotor.setNeutralMode(NeutralMode.Brake);
     rightTopMotor.setNeutralMode(NeutralMode.Brake);
 
+    //Created a solenoid for gear shifting.
+    gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    onHighGear = false;
+
     //Created differential drive by using left motors and right motors.
     diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
     leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
@@ -75,6 +84,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     roundedMotorPos = Math.floor(averageMotorPos + 0.5);
 
     SmartDashboard.putNumber("dtPos", roundedMotorPos);
+    SmartDashboard.putBoolean("Gear", onHighGear);
+
   }
 
   //Arcade drive methods.
@@ -83,5 +94,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double forwardSpeed = throttle * 0.8;
     double turnSpeed = turn * 0.8;
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
+  }
+
+  public void gearShiftLow(){
+    gearShiftSolenoid.set(false);
+    onHighGear = false;
+  }
+
+  public void gearShiftHigh(){
+    gearShiftSolenoid.set(true);
+    onHighGear = true;
   }
 }
