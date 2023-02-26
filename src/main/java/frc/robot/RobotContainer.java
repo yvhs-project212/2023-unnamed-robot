@@ -91,6 +91,7 @@ public class RobotContainer {
     final JoystickButton gearToggle = new JoystickButton(driverController, XboxController.Button.kA.value);
     gearToggle.onTrue(toggleGearShiftComm);
 
+    //Arm Binds
     arm.setDefaultCommand(armWithDPadsCmd);
   }
 
