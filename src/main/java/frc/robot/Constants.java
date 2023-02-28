@@ -28,6 +28,16 @@ public final class Constants {
     public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;
   }
 
+  public static class ClawConstants{
+    public static final int LEFT_CLAW_ROLLER_MOTOR = 4;
+    public static final int RIGHT_CLAW_ROLLER_MOTOR = 5;
+
+    public static final int CLAW_DOUBLE_SOLENOID_FORWARD = 2;
+    public static final int CLAW_DOUBLE_SOLENOID_REVERSE = 3;
+
+    public static final int CLAW_LIMIT_SWITCH = 8;
+  }
+
   public static class OperatorConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
@@ -44,6 +54,6 @@ public final class Constants {
   }
 
   public static class ArmConstants{
-    public static final int ARM_MOTOR = 4;
+    public static final int ARM_MOTOR = 10;
   }
 }

@@ -7,12 +7,17 @@ package frc.robot;
 import frc.robot.subsystems.NavxSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
+import frc.robot.commands.ClawIntakeCommand;
+import frc.robot.commands.ClawOpenCommand;
+import frc.robot.commands.ClawRollersOuttakeCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -35,6 +40,11 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
   private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
 
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,6 +69,17 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+
+    //Claw Binds
+    //Claw Intake
+    final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
+    clawIntake.whileTrue(clawIntakeComm);
+    //Claw Rollers Outtake
+    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    clawOpen.whileTrue(clawOpenComm);
+    //Claw Open
+    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
     
     arm.setDefaultCommand(armWithDPadsCmd);
   }
