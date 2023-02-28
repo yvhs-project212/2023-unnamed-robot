@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.NavxSubsystem;
 
-public class DriveUpTheRamp extends CommandBase {
+public class DriveUpTheRampCommand extends CommandBase {
   /** Creates a new DriveForwardCommand. */
 
   DrivetrainSubsystem drivetrainSub;
   NavxSubsystem navxSub;
 
-  public DriveUpTheRamp(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
+  public DriveUpTheRampCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     
     this.drivetrainSub = drivetrainSub;
@@ -30,7 +30,7 @@ public class DriveUpTheRamp extends CommandBase {
   @Override
   public void execute() {
     if(navxSub.getPitch() > 5){
-      drivetrainSub.driveForward(0.4);
+      drivetrainSub.driveForward(0.6);
     }
   }
 

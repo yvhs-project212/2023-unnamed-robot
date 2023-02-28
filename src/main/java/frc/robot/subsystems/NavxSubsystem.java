@@ -23,8 +23,8 @@ public class NavxSubsystem extends SubsystemBase {
   private double worldLinearAccelY;
   private double worldLinearAccelZ;
   public int robotUsing;
+  
   // Creates double methods and a gyroscope method 
-   
   public NavxSubsystem() {
     gyroScope = new AHRS(SPI.Port.kMXP);
     robotUsing = Constants.ROBOT_USING;
@@ -51,6 +51,7 @@ public class NavxSubsystem extends SubsystemBase {
     }
     // Sets double methods to the gyroscope values
 
+
     SmartDashboard.putNumber("YawValue", Math.floor(100*yaw+.5)/100.0);
     SmartDashboard.putNumber("PitchValue", Math.floor(100*pitch+.5)/100.0);
     SmartDashboard.putNumber("RollValue", Math.floor(100*roll+.5)/100.0);
@@ -60,10 +61,18 @@ public class NavxSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("getWorldLinearAccelY", Math.floor(100*worldLinearAccelY+0.5)/100.0);
     SmartDashboard.putNumber("getWorldLinearAccelZ", Math.floor(100*worldLinearAccelZ+0.5)/100.0);
     // Displays accel values of X, Y, and Z and rounds it up to the nearest hundredth
-        
-
   }
+
   public double getPitch(){
     return pitch;
   }
+
+  public double getYaw(){
+    return yaw;
+  }
+
+  public double getRoll(){
+    return roll;
+  }
+
 }

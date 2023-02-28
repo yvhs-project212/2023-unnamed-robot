@@ -13,10 +13,12 @@ import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.AutonomousPickerCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.AutonomousPickerSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 /**
@@ -40,16 +42,23 @@ public class RobotContainer {
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
-    //Claw Files
-    private final ClawSubsystem clawSub = new ClawSubsystem();
-    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+
+  //Autonomous files
+  private final AutonomousPickerSubsystem autonomousSub = new AutonomousPickerSubsystem();
+  private final AutonomousPickerCommand autonomousPickerCMD = new AutonomousPickerCommand (autonomousSub, m_NavxSubsystem, clawSub, arm, drivetrainSub);
+
+  //place autonomous commands here
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
   }
 
   /**

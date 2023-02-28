@@ -86,7 +86,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void driveForward(double forwardSpeed){
-    leftMotorGroup.set(forwardSpeed);
-    rightMotorGroup.set(forwardSpeed);
+    diffDrive.arcadeDrive(forwardSpeed, 0);
+  }
+
+  public void setMotors(double leftTopMotor, double leftBottomMotor, double rightTopMotor, double rightBottomMotor) {
   }
 }
