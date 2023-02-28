@@ -30,7 +30,7 @@ public class DriveUpTheRamp extends CommandBase {
   @Override
   public void execute() {
     if(navxSub.getPitch() > 5){
-
+      drivetrainSub.driveForward(0.4);
     }
   }
 
