@@ -14,11 +14,17 @@ package frc.robot;
  */
 public final class Constants {
 
+  public static final int ROBOT_USING = 2022;
+
   public static class DrivetrainConstants{
     public static final int LEFT_TOP_MOTOR = 0;
     public static final int LEFT_BOTTOM_MOTOR = 1;
     public static final int RIGHT_TOP_MOTOR = 2;
     public static final int RIGHT_BOTTOM_MOTOR = 3;
+
+    public static final double DRIVE_FORWARD_SPEED = 0.6;
+    public static final double DRIVE_UP_THE_RAMP_SPEED = 0.6;
+    public static final double CHARGING_STATION_BALANCING_SPEED = 0.08;
   }
 
   public static class ElevatorConstants{
@@ -56,4 +62,5 @@ public final class Constants {
   public static class ArmConstants{
     public static final int ARM_MOTOR = 10;
   }
+
 }
