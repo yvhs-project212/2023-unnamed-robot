@@ -13,6 +13,7 @@ import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
@@ -25,6 +26,7 @@ import frc.robot.subsystems.ClawSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -40,16 +42,22 @@ public class RobotContainer {
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
-    //Claw Files
-    private final ClawSubsystem clawSub = new ClawSubsystem();
-    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
+
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
   }
 
   /**
