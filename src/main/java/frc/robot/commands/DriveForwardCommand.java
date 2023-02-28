@@ -14,15 +14,15 @@ public class DriveForwardCommand extends CommandBase {
   /** Creates a new DriveForwardCommand. */
 
   DrivetrainSubsystem drivetrainSub;
-  NavxSubsystem NavX;
+  NavxSubsystem navX;
 
   int negative = 1;
   
-  public DriveForwardCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem NavX) {
+  public DriveForwardCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navX) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.drivetrainSub = drivetrainSub;
-    this.NavX = NavX;
+    this.navX = navX;
     addRequirements(drivetrainSub);
   }
 
@@ -49,7 +49,10 @@ public class DriveForwardCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (ChargeStation.RAMP_SLOPE = NavX.)
-    return false;
+    if (ChargeStation.RAMP_SLOPE <= navX.getPitch()){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
