@@ -20,6 +20,8 @@ public final class Constants {
     public static final int LEFT_BOTTOM_MOTOR = 1;
     public static final int RIGHT_TOP_MOTOR = 2;
     public static final int RIGHT_BOTTOM_MOTOR = 3;
+
+    public static final double AUTO_FORWARD_SPEED = 0.3;
   }
 
   
@@ -49,6 +51,10 @@ public final class Constants {
   }
 
   public static class ArmConstants{
-    public static final int ARM_MOTOR = 10;
+    public static final int ARM_MOTOR = 7;
+  }
+
+  public static class ChargeStation{
+    public static final double RAMP_SLOPE = 5.0;
   }
 }

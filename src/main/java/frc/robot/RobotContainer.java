@@ -11,11 +11,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.AutonomousPickerCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.AutonomousPickerSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,6 +36,10 @@ public class RobotContainer {
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
+  // Drivetrain Files
+  private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
+  private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
     //Claw Files
@@ -39,6 +47,12 @@ public class RobotContainer {
     private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
     private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
     private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+
+  //Autonomous files
+  private final AutonomousPickerSubsystem autonomousSub = new AutonomousPickerSubsystem();
+  private final AutonomousPickerCommand autonomousPickerCMD = new AutonomousPickerCommand (autonomousSub, m_NavxSubsystem, clawSub, arm, drivetrainSub);
+
+  //place autonomous commands here
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -73,6 +87,7 @@ public class RobotContainer {
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
     
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
     arm.setDefaultCommand(armWithDPadsCmd);
   }
 
