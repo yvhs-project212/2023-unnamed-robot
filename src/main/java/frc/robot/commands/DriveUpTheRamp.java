@@ -6,16 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.NavxSubsystem;
 
-public class DriveForwardCommand extends CommandBase {
+public class DriveUpTheRamp extends CommandBase {
   /** Creates a new DriveForwardCommand. */
 
   DrivetrainSubsystem drivetrainSub;
+  NavxSubsystem navxSub;
 
-  public DriveForwardCommand(DrivetrainSubsystem drivetrainSub) {
+  public DriveUpTheRamp(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     
     this.drivetrainSub = drivetrainSub;
+    this.navxSub = navxSub;
     addRequirements(drivetrainSub);
   }
 
@@ -26,7 +29,9 @@ public class DriveForwardCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(navxSub.getPitch() > 5){
 
+    }
   }
 
   // Called once the command ends or is interrupted.
