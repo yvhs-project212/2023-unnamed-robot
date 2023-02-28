@@ -46,7 +46,18 @@ public class NavxSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("getWorldLinearAccelY", Math.floor(100*worldLinearAccelY+0.5)/100.0);
     SmartDashboard.putNumber("getWorldLinearAccelZ", Math.floor(100*worldLinearAccelZ+0.5)/100.0);
     // Displays accel values of X, Y, and Z and rounds it up to the nearest hundredth
-          
-    // This method will be called once per scheduler run
   }
+
+  public double getPitch(){
+    return pitch;
+  }
+
+  public double getYaw(){
+    return yaw;
+  }
+
+  public double getRoll(){
+    return roll;
+  }
+
 }
