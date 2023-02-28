@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,22 +21,34 @@ public class NavxSubsystem extends SubsystemBase {
   private double roll;
   private double worldLinearAccelX;
   private double worldLinearAccelY;
-  private double worldLinearAccelZ; 
+  private double worldLinearAccelZ;
+  public int robotUsing;
+  
   // Creates double methods and a gyroscope method 
-   
   public NavxSubsystem() {
     gyroScope = new AHRS(SPI.Port.kMXP);
+    robotUsing = Constants.ROBOT_USING;
     // Configures "gyroscope" to the nav x port
   }
 
   @Override
   public void periodic() {
+    if(robotUsing == 2022){
+      worldLinearAccelX = gyroScope.getWorldLinearAccelX();
+      worldLinearAccelY = gyroScope.getWorldLinearAccelY();
+      worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
+      yaw = gyroScope.getYaw();
+      roll = -gyroScope.getPitch();
+      pitch = -gyroScope.getRoll();
+    }
+    if(robotUsing == 2023){
     worldLinearAccelX = gyroScope.getWorldLinearAccelX();
     worldLinearAccelY = gyroScope.getWorldLinearAccelY();
     worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
     yaw = gyroScope.getYaw();
     pitch = gyroScope.getPitch();
     roll = gyroScope.getRoll();
+    }
     // Sets double methods to the gyroscope values
 
 
@@ -47,7 +61,18 @@ public class NavxSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("getWorldLinearAccelY", Math.floor(100*worldLinearAccelY+0.5)/100.0);
     SmartDashboard.putNumber("getWorldLinearAccelZ", Math.floor(100*worldLinearAccelZ+0.5)/100.0);
     // Displays accel values of X, Y, and Z and rounds it up to the nearest hundredth
-          
-    // This method will be called once per scheduler run
   }
+
+  public double getPitch(){
+    return pitch;
+  }
+
+  public double getYaw(){
+    return yaw;
+  }
+
+  public double getRoll(){
+    return roll;
+  }
+
 }
