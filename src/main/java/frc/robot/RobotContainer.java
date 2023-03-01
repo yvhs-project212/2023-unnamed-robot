@@ -9,10 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
-
-import javax.swing.plaf.basic.BasicBorders.ToggleButtonBorder;
-
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
@@ -88,10 +84,10 @@ public class RobotContainer {
     //Claw Binds
     //Claw Intake
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
-    clawIntake.whileTrue(clawIntakeComm);
+    clawIntake.onTrue(clawIntakeComm);
     //Claw Rollers Outtake
     final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
-    clawOpen.whileTrue(clawOpenComm);
+    clawOpen.onTrue(clawOpenComm);
     //Claw Open
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
