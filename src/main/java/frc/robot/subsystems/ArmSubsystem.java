@@ -16,6 +16,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public WPI_TalonFX armMotor;
   public double armMotorPos;
+  public double inPlaceArmMotorPos;
   public double armDown;
   public double armUp;
   
@@ -23,6 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
     armMotor = new WPI_TalonFX(Constants.ArmConstants.ARM_MOTOR);
+    armMotor.setNeutralMode(NeutralMode.Brake);
     
 
   }
@@ -39,6 +41,14 @@ public class ArmSubsystem extends SubsystemBase {
       armMotor.set(-0.5);
     } else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
       armMotor.set(0.5); 
+    } else {
+      armMotor.set(0);
+      inPlaceArmMotorPos = armMotorPos;
+      if (inPlaceArmMotorPos > armMotorPos) {
+        armMotor.set(-0.5);
+      } else {
+        armMotor.set(0);
+      }
     }
   }
 
