@@ -6,12 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix.platform.can.AutocacheState;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.AutonomousPickerSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -37,18 +33,16 @@ public class AutonomousPickerCommand extends SubsystemBase {
     addRequirements(autonomousSub, driveTrain, m_NavxSubsystem);
   }
 
-  
+
   private void addRequirements(AutonomousPickerSubsystem autonomousSub2, DrivetrainSubsystem driveTrain2,
       NavxSubsystem m_NavxSubsystem2) {
   }
 
 
-
-
   public Command runAutonomous() {
     Command autoCommands = new SequentialCommandGroup();
 
-    switch(autonomousSub.getAutonomousMode()) {
+    switch(autonomousSub.getAutonomous()) {
       case NONE: 
         System.out.println("No Autonomous");
         autoCommands = new SequentialCommandGroup(
@@ -69,7 +63,6 @@ public class AutonomousPickerCommand extends SubsystemBase {
     return autoCommands;
   }
 
-  
 
   @Override
   public void periodic() {

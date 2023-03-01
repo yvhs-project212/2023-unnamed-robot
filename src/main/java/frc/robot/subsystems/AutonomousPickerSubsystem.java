@@ -15,6 +15,8 @@ public class AutonomousPickerSubsystem extends SubsystemBase {
     NONE, ONE, TWO
   }
 
+  public int option;
+
   public AutonomousMode startPosition = AutonomousMode.NONE;
 
   private SendableChooser<AutonomousMode> autonomousModeChooser;
@@ -32,7 +34,7 @@ public class AutonomousPickerSubsystem extends SubsystemBase {
     //
   }
 
-  public AutonomousMode getAutonomousMode() {
+  public AutonomousMode getAutonomous() {
     return autonomousModeChooser.getSelected();
   }
 
