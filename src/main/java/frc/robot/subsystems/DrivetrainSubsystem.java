@@ -58,15 +58,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightTopMotor.setNeutralMode(NeutralMode.Brake);
 
     //Created a solenoid for gear shifting.
-    gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.DrivetrainConstants.GEAR_SHIFTER_SOLENOID);
+    gearShiftSolenoid.set(true);
     onHighGear = false;
 
     //Created differential drive by using left motors and right motors.
     diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
-    leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
-    leftBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_BOTTOM_MOTOR);
-    rightTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_TOP_MOTOR);
-    rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
 
   }
 
@@ -97,12 +94,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void gearShiftLow(){
-    gearShiftSolenoid.set(false);
+    gearShiftSolenoid.set(true);
     onHighGear = false;
+    System.out.println("Gear Shifted Low");
   }
 
   public void gearShiftHigh(){
-    gearShiftSolenoid.set(true);
+    gearShiftSolenoid.set(false);
     onHighGear = true;
+    System.out.println("Gear Shifted High");
   }
 }

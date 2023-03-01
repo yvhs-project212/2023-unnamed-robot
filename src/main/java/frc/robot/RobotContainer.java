@@ -16,10 +16,12 @@ import javax.swing.plaf.basic.BasicBorders.ToggleButtonBorder;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
-import frc.robot.commands.ToggleGearShiftCommand;
+import frc.robot.commands.GearShiftHighCommand;
+import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -29,6 +31,7 @@ import frc.robot.subsystems.ClawSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -39,9 +42,14 @@ public class RobotContainer {
   // Drivetrain Files
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
-  private final ToggleGearShiftCommand toggleGearShiftComm = new ToggleGearShiftCommand(drivetrainSub);
+  private final GearShiftHighCommand gearShiftHighComm = new GearShiftHighCommand(drivetrainSub);
+  private final GearShiftLowCommand gearShiftLowComm = new GearShiftLowCommand(drivetrainSub);
 
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
+
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
 
   //Claw Files
   private final ClawSubsystem clawSub = new ClawSubsystem();
@@ -57,6 +65,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    elevatorSub.setDefaultCommand(elevatorLiftComm);
   }
 
   /**
@@ -88,8 +98,11 @@ public class RobotContainer {
     
     //Drivetrain Binds
     drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    final JoystickButton gearToggle = new JoystickButton(driverController, XboxController.Button.kA.value);
-    gearToggle.onTrue(toggleGearShiftComm);
+    final JoystickButton gearShiftHigh = new JoystickButton(driverController, XboxController.Button.kA.value);
+    gearShiftHigh.whileTrue(gearShiftHighComm);
+    final JoystickButton gearShiftLow = new JoystickButton(driverController, XboxController.Button.kB.value);
+    gearShiftLow.whileTrue(gearShiftLowComm);
+
 
     //Arm Binds
     arm.setDefaultCommand(armWithDPadsCmd);

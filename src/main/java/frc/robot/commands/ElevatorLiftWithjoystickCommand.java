@@ -5,18 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ToggleGearShiftCommand extends CommandBase {
-  /** Creates a new ToggleGearShiftCommand. */
+public class ElevatorLiftWithjoystickCommand extends CommandBase {
+  /** Creates a new ElevatorCommand. */
 
-  DrivetrainSubsystem drivetrainSub;
+  ElevatorSubsystem elevatorSub;
 
-  public ToggleGearShiftCommand(DrivetrainSubsystem drivetrainSub) {
+  public ElevatorLiftWithjoystickCommand(ElevatorSubsystem elevatorSub) {
     // Use addRequirements() here to declare subsystem dependencies.
-
-    this.drivetrainSub = drivetrainSub;
-    addRequirements(drivetrainSub);
+    this.elevatorSub = elevatorSub;
+    addRequirements(elevatorSub);
   }
 
   // Called when the command is initially scheduled.
@@ -26,14 +27,7 @@ public class ToggleGearShiftCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(drivetrainSub.onHighGear == true){
-      drivetrainSub.gearShiftLow();
-      drivetrainSub.onHighGear = false;
-    }
-    if(drivetrainSub.onHighGear == false){
-      drivetrainSub.gearShiftHigh();
-      drivetrainSub.onHighGear = true;
-    }
+    elevatorSub.elevatorLiftWithJoystick(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_Y_AXIS));
   }
 
   // Called once the command ends or is interrupted.
