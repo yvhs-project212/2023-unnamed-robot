@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +32,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double rightBottomMotorPos;
   public double averageMotorPos;
   public double roundedMotorPos;
+
+  public double lastTimestamp = 0;
+  public double lastError = 0;
 
   public DrivetrainSubsystem() {
 
@@ -88,6 +92,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void driveForward(double driveForwardSpeed){
     leftMotorGroup.set(driveForwardSpeed);
     rightMotorGroup.set(driveForwardSpeed);
+  }
+
+  public void chargingStationBalancingWithPID(double kP, double kD, double pitchError, double lastError){
+    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
+    double errorRate = (pitchError - lastError) / timeChanges;
+    leftMotorGroup.set(kP * pitchError * kD * errorRate);
+    rightMotorGroup.set(kP * pitchError * kD * errorRate);
+  }
+
+  public void updateTimestamp(){
+    lastTimestamp = Timer.getFPGATimestamp();
   }
 
 }
