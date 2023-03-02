@@ -26,6 +26,8 @@ public final class Constants {
     public static final double DRIVE_UP_THE_RAMP_kP = 0.6;
     public static final double DRIVE_UP_THE_RAMP_kD = 0.1;
     public static final double CHARGING_STATION_BALANCING_SPEED = 0.08;
+
+    public static final int GEAR_SHIFTER_SOLENOID = 0;
   }
 
   public static class ElevatorConstants{
@@ -36,8 +38,8 @@ public final class Constants {
   }
 
   public static class ClawConstants{
-    public static final int LEFT_CLAW_ROLLER_MOTOR = 4;
-    public static final int RIGHT_CLAW_ROLLER_MOTOR = 5;
+    public static final int LEFT_CLAW_ROLLER_MOTOR = 5;
+    public static final int RIGHT_CLAW_ROLLER_MOTOR = 8;
 
     public static final int CLAW_DOUBLE_SOLENOID_FORWARD = 2;
     public static final int CLAW_DOUBLE_SOLENOID_REVERSE = 3;
@@ -61,7 +63,7 @@ public final class Constants {
   }
 
   public static class ArmConstants{
-    public static final int ARM_MOTOR = 10;
+    public static final int ARM_MOTOR = 7;
   }
 
 }

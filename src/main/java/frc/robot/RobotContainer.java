@@ -31,6 +31,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
+  //Controller Files
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
@@ -38,6 +39,7 @@ public class RobotContainer {
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
 
+  //Gyroscope File
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
   //Elevator Files
