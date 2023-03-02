@@ -37,7 +37,9 @@ public class DriveUpTheRampCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //drivetrainSub.driveForward(Constants.DrivetrainConstants.DRIVE_UP_THE_RAMP_kP * ((navxSub.getPitch()) * 0.1));
+    drivetrainSub.chargingStationBalancingWithPID(Constants.DrivetrainConstants.DRIVE_UP_THE_RAMP_kP, 
+    Constants.DrivetrainConstants.DRIVE_UP_THE_RAMP_kD, 
+    navxSub.getPitch());
   }
 
   // Called once the command ends or is interrupted.

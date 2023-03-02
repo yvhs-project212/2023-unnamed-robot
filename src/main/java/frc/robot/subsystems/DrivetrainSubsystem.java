@@ -81,7 +81,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("dtPos", roundedMotorPos);
   }
 
-  //Arcade drive methods.
   public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
     double throttle = rightThrottle - leftThrottle;
     double forwardSpeed = throttle * 0.8;
@@ -94,11 +93,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightMotorGroup.set(driveForwardSpeed);
   }
 
-  public void chargingStationBalancingWithPID(double kP, double kD, double pitchError, double lastError){
+  public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
     double errorRate = (pitchError - lastError) / timeChanges;
     leftMotorGroup.set(kP * pitchError * kD * errorRate);
     rightMotorGroup.set(kP * pitchError * kD * errorRate);
+    lastTimestamp = Timer.getFPGATimestamp();
+    lastError = pitchError;
   }
 
   public void updateTimestamp(){
