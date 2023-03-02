@@ -19,6 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
   public double inPlaceArmMotorPos;
   public double armDown;
   public double armUp;
+  public boolean armMoving;
   
   
 
@@ -43,7 +44,6 @@ public class ArmSubsystem extends SubsystemBase {
       armMotor.set(0.15); 
     } else {
       armMotor.set(0);
-      inPlaceArmMotorPos = armMotorPos;
       if (inPlaceArmMotorPos > armMotorPos) {
         armMotor.set(-0.3);
       } else {

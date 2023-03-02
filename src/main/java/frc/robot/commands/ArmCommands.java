@@ -27,9 +27,15 @@ public class ArmCommands extends CommandBase {
   @Override
   public void execute() {
     if (RobotContainer.operatorController.getPOV() >= 0) {
-      arm.armWithPOV(RobotContainer.operatorController); 
+      arm.armWithPOV(RobotContainer.operatorController);
+      arm.armMoving = true; 
     } else {
       arm.stopMotors();
+      if (arm.armMoving ) {
+        arm.inPlaceArmMotorPos = arm.armMotorPos;
+        arm.armMoving = false;
+      }
+      
     }
   }
   // Called once the command ends or is interrupted.
