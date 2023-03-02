@@ -29,8 +29,6 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static ArmSubsystem arm = new ArmSubsystem();
-  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
@@ -51,12 +49,19 @@ public class RobotContainer {
   private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
   private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
+  //Arm Files
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
 
-    elevatorSub.setDefaultCommand(elevatorLiftComm);
+    //Settiing default commands for subsystems.
+    elevatorSub.setDefaultCommand(elevatorLiftComm);  
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
@@ -85,9 +90,7 @@ public class RobotContainer {
     //Claw Open
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
-    
-    drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    arm.setDefaultCommand(armWithDPadsCmd);
+
   }
 
   /**
