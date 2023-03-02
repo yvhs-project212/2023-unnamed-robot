@@ -16,8 +16,6 @@ import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
-import frc.robot.commands.GearShiftHighCommand;
-import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -32,15 +30,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
+  //Controller Files
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // Drivetrain Files
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
-  private final GearShiftHighCommand gearShiftHighComm = new GearShiftHighCommand(drivetrainSub);
-  private final GearShiftLowCommand gearShiftLowComm = new GearShiftLowCommand(drivetrainSub);
 
+  //Gyroscope File
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
   //Elevator Files
@@ -53,7 +51,7 @@ public class RobotContainer {
   private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
   private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
-  //Arm Flies
+  //Arm Files
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
@@ -62,7 +60,10 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    elevatorSub.setDefaultCommand(elevatorLiftComm);
+    //Settiing default commands for subsystems.
+    elevatorSub.setDefaultCommand(elevatorLiftComm);  
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
@@ -84,24 +85,14 @@ public class RobotContainer {
     //Claw Binds
     //Claw Intake
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
-    clawIntake.onTrue(clawIntakeComm);
+    clawIntake.whileTrue(clawIntakeComm);
     //Claw Rollers Outtake
     final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
-    clawOpen.onTrue(clawOpenComm);
+    clawOpen.whileTrue(clawOpenComm);
     //Claw Open
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
-    
-    //Drivetrain Binds
-    drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    final JoystickButton gearShiftHigh = new JoystickButton(driverController, XboxController.Button.kA.value);
-    gearShiftHigh.whileTrue(gearShiftHighComm);
-    final JoystickButton gearShiftLow = new JoystickButton(driverController, XboxController.Button.kB.value);
-    gearShiftLow.whileTrue(gearShiftLowComm);
 
-
-    //Arm Binds
-    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
