@@ -14,7 +14,10 @@ public class GearShiftLowCommand extends CommandBase {
 
   public GearShiftLowCommand(DrivetrainSubsystem drivetrainSub) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    this.drivetrainSub = drivetrainSub;
   }
+
 
   // Called when the command is initially scheduled.
   @Override
