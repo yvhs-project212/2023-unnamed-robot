@@ -98,8 +98,4 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastError = pitchError;
   }
 
-  public void updateTimestamp(){
-    lastTimestamp = Timer.getFPGATimestamp();
-  }
-
 }
