@@ -47,7 +47,7 @@ public class NavxSubsystem extends SubsystemBase {
       worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
       yaw = gyroScope.getYaw();
       roll = gyroScope.getRoll();
-      pitch = gyroScope.getPitch();
+      pitch = -gyroScope.getPitch();
     }
     // Sets double methods to the gyroscope values
 
