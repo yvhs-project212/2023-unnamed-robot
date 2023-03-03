@@ -36,7 +36,7 @@ public class ClawSubsystem extends SubsystemBase {
     clawMotorControllerGroup = new MotorControllerGroup(leftRollerMotor, rightRollerMotor);
 
     clawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_SOLENOID);
-    clawSolenoid.set(true);
+    clawSolenoid.set(false);
 
     clawLimitSwitch = new DigitalInput(Constants.ClawConstants.CLAW_LIMIT_SWITCH);
  
@@ -46,33 +46,33 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (clawLimitSwitch.get()){
-      clawLimitEnable = false;
-    } else{
       clawLimitEnable = true;
+    } else{
+      clawLimitEnable = false;
     }
     SmartDashboard.putBoolean("clawLimitSwitch", clawLimitEnable);
   }
 
   public void clawIntake(){
     if(clawLimitSwitch.get()){
-        clawSolenoid.set(false);
-        clawMotorControllerGroup.set(-0.5);
-    } else {
         clawSolenoid.set(true);
+        clawMotorControllerGroup.set(0.5);
+    } else {
+        clawSolenoid.set(false);
         clawMotorControllerGroup.set(0);
     }
   }
 
   public void clawOpen(){
-    clawSolenoid.set(false);
+    clawSolenoid.set(true);
   }
 
   public void clawRollersOuttake(){
-    clawMotorControllerGroup.set(0.5);
+    clawMotorControllerGroup.set(-0.5);
   }
 
   public void clawClose(){
-    clawSolenoid.set(true);
+    clawSolenoid.set(false);
   }
 
   public void clawRollersStop(){
