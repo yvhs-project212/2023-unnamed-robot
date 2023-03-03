@@ -91,10 +91,10 @@ public class RobotContainer {
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
     clawIntake.whileTrue(clawIntakeComm);
     //Claw Rollers Outtake
-    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawOpen.whileTrue(clawOpenComm);
     //Claw Open
-    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
 
     //Drivetrain Binds
