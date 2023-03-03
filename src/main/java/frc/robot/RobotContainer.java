@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
+import frc.robot.commands.GearShiftHighCommand;
+import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
@@ -37,6 +39,8 @@ public class RobotContainer {
   // Drivetrain Files
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+  private final GearShiftHighCommand gearShiftHighComm = new GearShiftHighCommand(drivetrainSub);
+  private final GearShiftLowCommand gearShiftLowComm = new GearShiftLowCommand(drivetrainSub);
 
   //Gyroscope File
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
@@ -93,6 +97,13 @@ public class RobotContainer {
     final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
 
+    //Drivetrain Binds
+    //Drivetrain Gear Shift High
+    final JoystickButton gearShiftHigh = new JoystickButton(driverController, XboxController.Button.kA.value);
+    gearShiftHigh.whileTrue(gearShiftHighComm);
+    //Drivetrain Gear Shift Low
+    final JoystickButton gearShiftLow = new JoystickButton(driverController, XboxController.Button.kB.value);
+    gearShiftLow.whileTrue(gearShiftLowComm);
   }
 
   /**
