@@ -13,8 +13,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
-  public static final int ROBOT_USING = 2022;
+  
+  public static final int ROBOT_USING = 2023;
 
   public static class DrivetrainConstants{
     public static final int LEFT_TOP_MOTOR = 0;
@@ -33,7 +33,7 @@ public final class Constants {
   public static class ElevatorConstants{
     public static final int ELEVATOR_MOTOR = 6;
 
-    public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 9;
+    public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 0;
     public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;
   }
 
@@ -41,8 +41,7 @@ public final class Constants {
     public static final int LEFT_CLAW_ROLLER_MOTOR = 5;
     public static final int RIGHT_CLAW_ROLLER_MOTOR = 8;
 
-    public static final int CLAW_DOUBLE_SOLENOID_FORWARD = 2;
-    public static final int CLAW_DOUBLE_SOLENOID_REVERSE = 3;
+    public static final int CLAW_SOLENOID = 1;
 
     public static final int CLAW_LIMIT_SWITCH = 8;
   }

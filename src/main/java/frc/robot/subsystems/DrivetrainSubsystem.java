@@ -97,6 +97,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void driveForward(double driveForwardSpeed){
+    gearShiftSolenoid.set(true);
     leftMotorGroup.set(driveForwardSpeed);
     rightMotorGroup.set(driveForwardSpeed);
   }
@@ -104,8 +105,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
     double errorRate = (pitchError - lastError) / timeChanges;
-    leftMotorGroup.set(kP * pitchError * kD * errorRate);
-    rightMotorGroup.set(kP * pitchError * kD * errorRate);
+    leftMotorGroup.set(kP * pitchError + kD * errorRate);
+    rightMotorGroup.set(kP * pitchError + kD * errorRate);
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = pitchError;
   }

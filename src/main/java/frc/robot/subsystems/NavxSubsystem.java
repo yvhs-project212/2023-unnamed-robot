@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +22,6 @@ public class NavxSubsystem extends SubsystemBase {
   private double worldLinearAccelY;
   private double worldLinearAccelZ;
   public int robotUsing;
-  
   // Creates double methods and a gyroscope method 
   public NavxSubsystem() {
     gyroScope = new AHRS(SPI.Port.kMXP);
@@ -42,12 +40,12 @@ public class NavxSubsystem extends SubsystemBase {
       pitch = -gyroScope.getRoll();
     }
     if(robotUsing == 2023){
-    worldLinearAccelX = gyroScope.getWorldLinearAccelX();
-    worldLinearAccelY = gyroScope.getWorldLinearAccelY();
-    worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
-    yaw = gyroScope.getYaw();
-    pitch = gyroScope.getPitch();
-    roll = gyroScope.getRoll();
+      worldLinearAccelX = gyroScope.getWorldLinearAccelX();
+      worldLinearAccelY = gyroScope.getWorldLinearAccelY();
+      worldLinearAccelZ = gyroScope.getWorldLinearAccelZ();
+      yaw = gyroScope.getYaw();
+      roll = gyroScope.getRoll();
+      pitch = -gyroScope.getPitch();
     }
     // Sets double methods to the gyroscope values
 
