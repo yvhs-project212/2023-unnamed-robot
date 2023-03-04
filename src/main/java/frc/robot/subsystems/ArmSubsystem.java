@@ -44,6 +44,10 @@ public class ArmSubsystem extends SubsystemBase {
   public void stopMotors() {
     armMotor.set(0);
   }
+
+  public void resetArmEncoder(){
+    armMotorPos = 0;
+  }
 }
 
 

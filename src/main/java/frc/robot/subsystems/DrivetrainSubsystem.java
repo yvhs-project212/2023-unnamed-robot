@@ -126,4 +126,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     System.out.println("Gear Shifted High");
   }
 
+  public void resetDrivetrainEncoders(){
+    roundedMotorPos = 0;
+  }
 }

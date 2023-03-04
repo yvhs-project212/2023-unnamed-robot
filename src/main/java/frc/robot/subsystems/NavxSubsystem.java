@@ -74,5 +74,8 @@ public class NavxSubsystem extends SubsystemBase {
   public double getRoll(){
     return roll;
   }
+  public void resetNavX(){
+    gyroScope.reset();
+  }
 
 }

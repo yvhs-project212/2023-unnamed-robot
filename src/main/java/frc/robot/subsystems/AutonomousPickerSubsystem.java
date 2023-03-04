@@ -12,7 +12,7 @@ public class AutonomousPickerSubsystem extends SubsystemBase {
   /** Creates a new AutonomousPickerSubsystem. */
 
   public enum AutonomousMode {
-    NONE, ONE, TWO
+    NONE, CHARGINGSTATION, CUBESHOOTING
   }
 
   public int option;
@@ -24,8 +24,8 @@ public class AutonomousPickerSubsystem extends SubsystemBase {
   public AutonomousPickerSubsystem() {
     autonomousModeChooser = new SendableChooser<>();
     autonomousModeChooser.setDefaultOption("None", AutonomousMode.NONE);
-    autonomousModeChooser.addOption("One", AutonomousMode.ONE);
-    autonomousModeChooser.addOption("Two", AutonomousMode.TWO);
+    autonomousModeChooser.addOption("ChargingStationBalancing", AutonomousMode.CHARGINGSTATION);
+    autonomousModeChooser.addOption("CubeShooting", AutonomousMode.CUBESHOOTING);
     //Line 23 - Makes autonomous chooser a sendable chooser
     //line 24 - sets the Autonomous chooser as "None" by default
     //lines 25 to 26 adds two options to the autonomous choose named "One" and "Two" 
