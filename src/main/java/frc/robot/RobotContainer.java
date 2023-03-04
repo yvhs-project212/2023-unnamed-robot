@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ElevatorLiftWithjoystickCommand;
+import frc.robot.commands.GearShiftHighCommand;
+import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
@@ -25,31 +27,47 @@ import frc.robot.subsystems.ClawSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static ArmSubsystem arm = new ArmSubsystem();
-  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
+  //Controller Files
   public static XboxController driverController = new XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
   public static XboxController operatorController = new XboxController(Constants.OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // Drivetrain Files
   private final DrivetrainSubsystem drivetrainSub = new DrivetrainSubsystem();
   private final ArcadeDriveCommand arcadeDriveComm = new ArcadeDriveCommand(drivetrainSub);
+  private final GearShiftHighCommand gearShiftHighComm = new GearShiftHighCommand(drivetrainSub);
+  private final GearShiftLowCommand gearShiftLowComm = new GearShiftLowCommand(drivetrainSub);
 
+  //Gyroscope File
   private final NavxSubsystem m_NavxSubsystem = new NavxSubsystem();
 
-    //Claw Files
-    private final ClawSubsystem clawSub = new ClawSubsystem();
-    private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-    private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
-    private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+  //Elevator Files
+  private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
+  private final ElevatorLiftWithjoystickCommand elevatorLiftComm = new ElevatorLiftWithjoystickCommand(elevatorSub);
+
+  //Claw Files
+  private final ClawSubsystem clawSub = new ClawSubsystem();
+  private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
+
+  //Arm Files
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    //Settiing default commands for subsystems.
+    elevatorSub.setDefaultCommand(elevatorLiftComm);  
+    drivetrainSub.setDefaultCommand(arcadeDriveComm);
+    arm.setDefaultCommand(armWithDPadsCmd);
   }
 
   /**
@@ -73,14 +91,19 @@ public class RobotContainer {
     final JoystickButton clawIntake = new JoystickButton(operatorController, XboxController.Button.kRightBumper.value);
     clawIntake.whileTrue(clawIntakeComm);
     //Claw Rollers Outtake
-    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
+    final JoystickButton clawOpen = new JoystickButton(operatorController, XboxController.Button.kY.value);
     clawOpen.whileTrue(clawOpenComm);
     //Claw Open
-    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    final JoystickButton clawRollersOuttake = new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value);
     clawRollersOuttake.whileTrue(clawRollersOuttakeComm);
-    
-    drivetrainSub.setDefaultCommand(arcadeDriveComm);
-    arm.setDefaultCommand(armWithDPadsCmd);
+
+    //Drivetrain Binds
+    //Drivetrain Gear Shift High
+    final JoystickButton gearShiftHigh = new JoystickButton(driverController, XboxController.Button.kA.value);
+    gearShiftHigh.whileTrue(gearShiftHighComm);
+    //Drivetrain Gear Shift Low
+    final JoystickButton gearShiftLow = new JoystickButton(driverController, XboxController.Button.kB.value);
+    gearShiftLow.whileTrue(gearShiftLowComm);
   }
 
   /**

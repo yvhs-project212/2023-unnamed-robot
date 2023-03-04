@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,7 +21,7 @@ public class ClawSubsystem extends SubsystemBase {
   //Initializing Motors And Solenoids
   public WPI_TalonSRX leftRollerMotor;
   public WPI_TalonSRX rightRollerMotor;
-  public DoubleSolenoid clawDoubleSolenoid;
+  public Solenoid clawSolenoid;
   public MotorControllerGroup clawMotorControllerGroup;
 
   public DigitalInput clawLimitSwitch;
@@ -35,8 +35,8 @@ public class ClawSubsystem extends SubsystemBase {
     rightRollerMotor.setInverted(true);
     clawMotorControllerGroup = new MotorControllerGroup(leftRollerMotor, rightRollerMotor);
 
-    clawDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_DOUBLE_SOLENOID_FORWARD, Constants.ClawConstants.CLAW_DOUBLE_SOLENOID_REVERSE);
-    clawDoubleSolenoid.set(Value.kForward);
+    clawSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ClawConstants.CLAW_SOLENOID);
+    clawSolenoid.set(false);
 
     clawLimitSwitch = new DigitalInput(Constants.ClawConstants.CLAW_LIMIT_SWITCH);
  
@@ -46,33 +46,33 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (clawLimitSwitch.get()){
-      clawLimitEnable = false;
-    } else{
       clawLimitEnable = true;
+    } else{
+      clawLimitEnable = false;
     }
     SmartDashboard.putBoolean("clawLimitSwitch", clawLimitEnable);
   }
 
   public void clawIntake(){
     if(clawLimitSwitch.get()){
-        clawDoubleSolenoid.set(Value.kReverse);
-        clawMotorControllerGroup.set(-0.5);
+        clawSolenoid.set(true);
+        clawMotorControllerGroup.set(0.5);
     } else {
-        clawDoubleSolenoid.set(Value.kForward);
+        clawSolenoid.set(false);
         clawMotorControllerGroup.set(0);
     }
   }
 
   public void clawOpen(){
-    clawDoubleSolenoid.set(Value.kReverse);
+    clawSolenoid.set(true);
   }
 
   public void clawRollersOuttake(){
-    clawMotorControllerGroup.set(0.5);
+    clawMotorControllerGroup.set(-0.5);
   }
 
   public void clawClose(){
-    clawDoubleSolenoid.set(Value.kForward);
+    clawSolenoid.set(false);
   }
 
   public void clawRollersStop(){
