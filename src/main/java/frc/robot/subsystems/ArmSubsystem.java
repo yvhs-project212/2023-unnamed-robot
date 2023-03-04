@@ -44,6 +44,9 @@ public class ArmSubsystem extends SubsystemBase {
   
   public void armWithJoystick(double armSpeed) {
     armMotor.set(armSpeed * 0.5);
+    if (armSpeed > 0.01 || armSpeed < -0.01){
+      inPlaceArmMotorPos = armMotorPos; 
+    }
   }
 
   public void stopMotors() {
