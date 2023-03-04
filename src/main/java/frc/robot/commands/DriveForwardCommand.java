@@ -44,7 +44,7 @@ public class DriveForwardCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(navxSub.getPitch() > 10){
+    if(navxSub.getPitch() >= 10){
       return true;
     } else{
     return false;

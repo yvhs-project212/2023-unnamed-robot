@@ -22,10 +22,9 @@ public final class Constants {
     public static final int RIGHT_TOP_MOTOR = 2;
     public static final int RIGHT_BOTTOM_MOTOR = 3;
 
-    public static final double DRIVE_FORWARD_SPEED = 0.6;
-    public static final double DRIVE_UP_THE_RAMP_kP = 0.6;
-    public static final double DRIVE_UP_THE_RAMP_kD = 0.1;
-    public static final double CHARGING_STATION_BALANCING_SPEED = 0.08;
+    public static final double DRIVE_FORWARD_SPEED = 0.25;
+    public static final double DRIVE_UP_THE_RAMP_kP = 0.011;
+    public static final double DRIVE_UP_THE_RAMP_kD = 0;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;
   }

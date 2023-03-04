@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -105,8 +106,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
     double errorRate = (pitchError - lastError) / timeChanges;
-    leftMotorGroup.set(kP * pitchError + kD * errorRate);
-    rightMotorGroup.set(kP * pitchError + kD * errorRate);
+    double motorOutput = MathUtil.clamp((kP * pitchError + kD * errorRate), -0.4, 0.4);
+    leftMotorGroup.set(motorOutput);
+    rightMotorGroup.set(motorOutput);
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = pitchError;
   }
@@ -123,5 +125,4 @@ public class DrivetrainSubsystem extends SubsystemBase {
     onHighGear = true;
     System.out.println("Gear Shifted High");
   }
-
 }
