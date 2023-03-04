@@ -93,14 +93,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
 
-<<<<<<< HEAD
   public void driveForward(double forwardSpeed){
     diffDrive.arcadeDrive(forwardSpeed, 0);
   }
 
   public void setMotors(double leftTopMotor, double leftBottomMotor, double rightTopMotor, double rightBottomMotor) {
   }
-=======
+
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);
     onHighGear = false;
@@ -113,5 +112,4 @@ public class DrivetrainSubsystem extends SubsystemBase {
     System.out.println("Gear Shifted High");
   }
 
->>>>>>> main
 }

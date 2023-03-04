@@ -6,9 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import frc.robot.Constants;
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +21,6 @@ public class NavxSubsystem extends SubsystemBase {
   private double worldLinearAccelX;
   private double worldLinearAccelY;
   private double worldLinearAccelZ;
-  public int robotUsing;
   public int robotUsing;
   
   // Creates double methods and a gyroscope method 
