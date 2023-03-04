@@ -25,6 +25,9 @@ public final class Constants {
     public static final double AUTO_FORWARD_SPEED = 0.6;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;
+    
+    public static final double DRIVE_UP_THE_RAMP_kD = 0;
+    public static final double DRIVE_UP_THE_RAMP_kP = 0;
   }
 
   public static class ElevatorConstants{

@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +37,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double rightBottomMotorPos;
   public double averageMotorPos;
   public double roundedMotorPos;
+
+  public double lastTimestamp = 0;
+  public double lastError = 0;
 
   public DrivetrainSubsystem() {
 
@@ -99,6 +103,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void setMotors(double leftTopMotor, double leftBottomMotor, double rightTopMotor, double rightBottomMotor) {
   }
+
+  public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
+    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
+    double errorRate = (pitchError - lastError) / timeChanges;
+    leftMotorGroup.set(kP * pitchError + kD * errorRate);
+    rightMotorGroup.set(kP * pitchError + kD * errorRate);
+    lastTimestamp = Timer.getFPGATimestamp();
+    lastError = pitchError;
+  }
+
 
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);
