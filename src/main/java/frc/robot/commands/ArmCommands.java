@@ -29,10 +29,10 @@ public class ArmCommands extends CommandBase {
     if (RobotContainer.operatorController.getPOV() >= 0) {
       arm.armWithPOV(RobotContainer.operatorController);
       arm.armMoving = true; 
+      
     } else {
       arm.stopMotors();
       if (arm.armMoving ) {
-        arm.inPlaceArmMotorPos = arm.armMotorPos;
         arm.armMoving = false;
       }
       

@@ -34,14 +34,21 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     armMotorPos = armMotor.getSelectedSensorPosition();
+    if (inPlaceArmMotorPos > armMotorPos) {
+      armMotor.set(-0.3);
+    } else if (inPlaceArmMotorPos <= armMotorPos) {
+      armMotor.set(0);
+    }
   
   }
   
   public void armWithPOV(XboxController controller) {
     if ((controller.getPOV() == 0)) {               // Up D-Pad makes arm go up
       armMotor.set(-0.3);
+      inPlaceArmMotorPos = armMotorPos;
     } else if (controller.getPOV() == 180) {        // Down D-Pad makes arm go down
       armMotor.set(0.15); 
+      inPlaceArmMotorPos = armMotorPos;
     } else {
       armMotor.set(0);
       if (inPlaceArmMotorPos > armMotorPos) {
@@ -56,5 +63,3 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.set(0);
   }
 }
-
-
