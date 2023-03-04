@@ -63,7 +63,7 @@ public class RobotContainer {
 
   //Autonomous files
   private final AutonomousPickerSubsystem autonomousSub = new AutonomousPickerSubsystem();
-  private final AutonomousPickerCommand autonomousPickerCMD = new AutonomousPickerCommand (autonomousSub, m_NavxSubsystem, clawSub, arm, drivetrainSub);
+  private final AutonomousPickerCommand autonomousPickerCMD = new AutonomousPickerCommand (autonomousSub, m_NavxSubsystem, drivetrainSub);
 
   //place autonomous commands here
 

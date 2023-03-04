@@ -39,7 +39,6 @@ public class ClawSubsystem extends SubsystemBase {
     clawSolenoid.set(false);
 
     clawLimitSwitch = new DigitalInput(Constants.ClawConstants.CLAW_LIMIT_SWITCH);
- 
   }
 
 
