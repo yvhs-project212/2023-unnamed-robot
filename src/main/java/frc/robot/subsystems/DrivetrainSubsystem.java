@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +26,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public MotorControllerGroup leftMotorGroup;
   public MotorControllerGroup rightMotorGroup;
   public DifferentialDrive diffDrive;
+
+  public Solenoid gearShiftSolenoid;
+  public boolean onHighGear;
 
   public double leftTopMotorPos;
   public double leftBottomMotorPos;
@@ -52,6 +57,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightBottomMotor.setNeutralMode(NeutralMode.Brake);
     rightTopMotor.setNeutralMode(NeutralMode.Brake);
 
+    //Created a solenoid for gear shifting.
+    gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.DrivetrainConstants.GEAR_SHIFTER_SOLENOID);
+    gearShiftSolenoid.set(true);
+    onHighGear = false;
+
     //Created differential drive by using left motors and right motors.
     diffDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
@@ -71,6 +81,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     roundedMotorPos = Math.floor(averageMotorPos + 0.5);
 
     SmartDashboard.putNumber("dtPos", roundedMotorPos);
+    SmartDashboard.putBoolean("Gear", onHighGear);
+
   }
 
   //Arcade drive methods.
@@ -81,10 +93,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
 
+<<<<<<< HEAD
   public void driveForward(double forwardSpeed){
     diffDrive.arcadeDrive(forwardSpeed, 0);
   }
 
   public void setMotors(double leftTopMotor, double leftBottomMotor, double rightTopMotor, double rightBottomMotor) {
   }
+=======
+  public void gearShiftLow(){
+    gearShiftSolenoid.set(true);
+    onHighGear = false;
+    System.out.println("Gear Shifted Low");
+  }
+
+  public void gearShiftHigh(){
+    gearShiftSolenoid.set(false);
+    onHighGear = true;
+    System.out.println("Gear Shifted High");
+  }
+
+>>>>>>> main
 }

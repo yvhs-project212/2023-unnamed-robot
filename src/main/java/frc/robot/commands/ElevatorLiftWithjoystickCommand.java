@@ -7,32 +7,32 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ArmCommands extends CommandBase {
-  /** Creates a new ArmCommands. */
-    public ArmSubsystem arm;
+public class ElevatorLiftWithjoystickCommand extends CommandBase {
+  /** Creates a new ElevatorCommand. */
 
-    public ArmCommands(ArmSubsystem arm) {
-      this.arm = arm;
-      addRequirements(arm);
-    }
+  ElevatorSubsystem elevatorSub;
+
+  public ElevatorLiftWithjoystickCommand(ElevatorSubsystem elevatorSub) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.elevatorSub = elevatorSub;
+    addRequirements(elevatorSub);
+  }
+
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("ArmWithDPadsCmd started!");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.armWithJoystick(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.R_Y_AXIS));
+    elevatorSub.elevatorLiftWithJoystick(RobotContainer.operatorController.getRawAxis(Constants.OperatorConstants.OperationBinds.L_Y_AXIS));
   }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    System.out.println("ArmWithDPadsCmd ended!");}
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

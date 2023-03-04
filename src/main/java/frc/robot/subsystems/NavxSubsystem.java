@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import frc.robot.Constants;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,10 +25,12 @@ public class NavxSubsystem extends SubsystemBase {
   private double worldLinearAccelY;
   private double worldLinearAccelZ;
   public int robotUsing;
+  public int robotUsing;
   
   // Creates double methods and a gyroscope method 
   public NavxSubsystem() {
     gyroScope = new AHRS(SPI.Port.kMXP);
+    robotUsing = Constants.ROBOT_USING;
     robotUsing = Constants.ROBOT_USING;
     // Configures "gyroscope" to the nav x port
   }
