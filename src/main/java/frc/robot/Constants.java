@@ -23,6 +23,10 @@ public final class Constants {
     public static final int RIGHT_BOTTOM_MOTOR = 3;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;
+
+    public static final double LOW_GEAR_ENCODER_PER_INCH = 1449.25;
+    public static final double HIGH_GEAR_ENCODER_PER_INCH = 547.57;
+
   }
 
   public static class ElevatorConstants{
@@ -30,6 +34,10 @@ public final class Constants {
 
     public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 0;
     public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;
+
+    public static final double ELEVATOR_BOTTOM_INCHES = 18.75;
+    public static final double ELEVATOR_TOP_INCHES = 38.25;
+    public static final double ENCODER_PER_INCH = 4801.79;
   }
 
   public static class ClawConstants{
@@ -58,6 +66,10 @@ public final class Constants {
 
   public static class ArmConstants{
     public static final int ARM_MOTOR = 7;
+
+    public static final double ARM_MINIMUM_ANGLE = -58;
+    public static final double ARM_MAXIMUM_ANGLE = 82;
+    public static final double ENCODER_PER_DEGREE = 1122.05;
   }
 
 }
