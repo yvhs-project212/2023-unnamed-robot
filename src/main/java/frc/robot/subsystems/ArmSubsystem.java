@@ -25,6 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new WPI_TalonFX(Constants.ArmConstants.ARM_MOTOR);
     armMotor.setNeutralMode(NeutralMode.Brake);
+    armMotor.setInverted(true);
 
   }
 
