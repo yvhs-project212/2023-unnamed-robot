@@ -6,9 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutonomousPickerCommand extends CommandBase {
-  /** Creates a new AutonomousPickerCommand. */
-  public AutonomousPickerCommand() {
+public class AutonomousInitializeCommand extends CommandBase {
+  /** Creates a new AutonomousInitializeCommand. */
+  public AutonomousInitializeCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
