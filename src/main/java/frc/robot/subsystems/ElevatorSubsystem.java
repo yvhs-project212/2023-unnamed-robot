@@ -48,6 +48,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putBoolean("UpperElevatorLimitSwitch", upperLimitSwitch.get());
+    SmartDashboard.putBoolean("BottomElevatorLimitSwitch", bottomLimitSwitch.get());
   }
 
   //Move elevator by using joystick methods.
