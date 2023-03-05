@@ -92,8 +92,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
     double throttle = rightThrottle - leftThrottle;
-    double forwardSpeed = throttle * 0.8;
-    double turnSpeed = turn * 0.8;
+    double forwardSpeed = throttle * 0.6;
+    double turnSpeed = turn * 0.6;
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
 
