@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new Arm. */
@@ -33,18 +34,23 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    
+    SmartDashboard.putNumber("In Place Arm Position", inPlaceArmMotorPos);
+
     armMotorPos = armMotor.getSelectedSensorPosition();
-    if (inPlaceArmMotorPos > armMotorPos) {
-      armMotor.set(-0.3);
-    } else if (inPlaceArmMotorPos <= armMotorPos) {
+    if (inPlaceArmMotorPos < armMotorPos) {
+      armMotor.set(-0.4);
+    } else if (inPlaceArmMotorPos >= armMotorPos) {
       armMotor.set(0);
     }
   
   }
   
   public void armWithJoystick(double armSpeed) {
-    armMotor.set(armSpeed * 0.5);
-    if (armSpeed > 0.01 || armSpeed < -0.01){
+    SmartDashboard.putNumber("Arm position", armMotorPos);
+    armMotor.set(armSpeed * 0.4);
+    if (armSpeed < 0.03 || armSpeed > -0.03){
       inPlaceArmMotorPos = armMotorPos; 
     }
   }
