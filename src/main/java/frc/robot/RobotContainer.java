@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.GearShiftHighCommand;
 import frc.robot.commands.GearShiftLowCommand;
@@ -58,6 +59,9 @@ public class RobotContainer {
   //Arm Files
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
+
+  //Autonomous File
+  public final ChargingStationBalancingCmdGroup chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -113,6 +117,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() { 
     // An example command will be run in autonomous
-    return null;
+    return chargingStationBalancingCmdGrp;
   }
 }

@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -36,6 +38,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double rightBottomMotorPos;
   public double averageMotorPos;
   public double roundedMotorPos;
+
+  public double lastTimestamp = 0;
+  public double lastError = 0;
 
   public DrivetrainSubsystem() {
 
@@ -85,13 +90,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   }
 
-  //Arcade drive methods.
   public void driveWithJoysticks(double leftThrottle, double rightThrottle, double turn){
     double throttle = rightThrottle - leftThrottle;
-    double forwardSpeed = throttle * 0.8;
-    double turnSpeed = turn * 0.8;
+    double forwardSpeed = throttle * 0.6;
+    double turnSpeed = turn * 0.6;
     diffDrive.arcadeDrive(forwardSpeed, turnSpeed);
   }
+
+  public void driveForward(double driveForwardSpeed){
+    gearShiftSolenoid.set(true);
+    leftMotorGroup.set(driveForwardSpeed);
+    rightMotorGroup.set(driveForwardSpeed * 0.95);
+  }
+
+  public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
+    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
+    double errorRate = (pitchError - lastError) / timeChanges;
+    double motorOutput = MathUtil.clamp((kP * pitchError + kD * errorRate), -0.10, 0.2);
+    leftMotorGroup.set(motorOutput);
+    rightMotorGroup.set(motorOutput * 0.95);
+    lastTimestamp = Timer.getFPGATimestamp();
+    lastError = pitchError;
+  }
+
 
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);
