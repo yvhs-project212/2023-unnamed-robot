@@ -27,7 +27,6 @@ public class DriveForwardCommand extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("Starting Drive Forward!");
-    drivetrainSub.resetDrivetrainEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
