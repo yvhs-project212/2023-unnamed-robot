@@ -100,15 +100,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void driveForward(double driveForwardSpeed){
     gearShiftSolenoid.set(true);
     leftMotorGroup.set(driveForwardSpeed);
-    rightMotorGroup.set(driveForwardSpeed);
+    rightMotorGroup.set(driveForwardSpeed * 0.95);
   }
 
   public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
     double errorRate = (pitchError - lastError) / timeChanges;
-    double motorOutput = MathUtil.clamp((kP * pitchError + kD * errorRate), -0.4, 0.4);
+    double motorOutput = MathUtil.clamp((kP * pitchError + kD * errorRate), -0.10, 0.2);
     leftMotorGroup.set(motorOutput);
-    rightMotorGroup.set(motorOutput);
+    rightMotorGroup.set(motorOutput * 0.95);
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = pitchError;
   }
@@ -125,4 +125,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
     onHighGear = true;
     System.out.println("Gear Shifted High");
   }
+
 }
