@@ -49,7 +49,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
   
   public void armWithJoystick(double armSpeed) {
-    SmartDashboard.putNumber("Arm position", armMotorPos);
     armMotor.set(armSpeed * 0.4);
     if (armSpeed < 0.03 || armSpeed > -0.03){
       inPlaceArmMotorPos = armMotorPos; 
