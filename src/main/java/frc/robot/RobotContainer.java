@@ -16,6 +16,7 @@ import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.GearShiftHighCommand;
 import frc.robot.commands.GearShiftLowCommand;
+import frc.robot.commands.TurnAroundCommand;
 import frc.robot.commands.ClawIntakeCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ClawRollersOuttakeCommand;
@@ -62,6 +63,7 @@ public class RobotContainer {
 
   //Autonomous File
   public final ChargingStationBalancingCmdGroup chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
+  public final TurnAroundCommand turnAroundComm = new TurnAroundCommand(drivetrainSub, m_NavxSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

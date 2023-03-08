@@ -73,4 +73,7 @@ public class NavxSubsystem extends SubsystemBase {
     return roll;
   }
 
+  public void resetGyro(){
+    
+  }
 }

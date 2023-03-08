@@ -119,7 +119,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double turnError = Constants.DrivetrainConstants.TURN_SETPOINT - yawValue;
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
     turnErrorSum += turnError * timeChanges;
-    double motorOutput = MathUtil.clamp((kP * turnError + kI * turnErrorSum), -0.6, 0.6);
+    double motorOutput = MathUtil.clamp((kP * turnError + kI * turnErrorSum), -0.5, 0.5);
     leftMotorGroup.set(motorOutput);
     rightMotorGroup.set(-motorOutput);
     lastTimestamp = Timer.getFPGATimestamp();
