@@ -44,6 +44,7 @@ public class ArmSubsystem extends SubsystemBase {
     } else if (inPlaceArmMotorPos >= armMotorPos) {
       armMotor.set(0);
     }
+    SmartDashboard.putNumber("ArmPosition", armMotorPos);
   
   }
   
