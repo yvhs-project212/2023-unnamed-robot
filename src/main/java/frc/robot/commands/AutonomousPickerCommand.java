@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -12,29 +12,31 @@ import frc.robot.subsystems.AutonomousPickerSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.NavxSubsystem;
 
-public class AutonomousPickerCommand extends SubsystemBase {
-  /** Creates a new AutonomousPickerCommand. */
+public class AutonomousPickerCommand extends CommandBase {
+  /** Creates a new AutoPickerCommand. */
 
   private final AutonomousPickerSubsystem autonomousSub;
   private final DrivetrainSubsystem driveTrain;
   private final NavxSubsystem m_NavxSubsystem;
 
 
-
   public AutonomousPickerCommand(AutonomousPickerSubsystem autonomousSub, NavxSubsystem m_NavxSubsystem, DrivetrainSubsystem driveTrain) {
+    // Use addRequirements() here to declare subsystem dependencies.
 
     this.autonomousSub = autonomousSub;
     this.driveTrain = driveTrain;
     this.m_NavxSubsystem = m_NavxSubsystem;
 
-    addRequirements(autonomousSub, driveTrain, m_NavxSubsystem);
+    addRequirements(autonomousSub, m_NavxSubsystem, driveTrain);
   }
 
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {}
 
-  private void addRequirements(AutonomousPickerSubsystem autonomousSub2, DrivetrainSubsystem driveTrain2,
-      NavxSubsystem m_NavxSubsystem2) {
-  }
-
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {}
 
   public Command runAutonomous() {
     Command autoCommands = new SequentialCommandGroup();
@@ -44,10 +46,11 @@ public class AutonomousPickerCommand extends SubsystemBase {
         System.out.println("No Autonomous");
         autoCommands = new SequentialCommandGroup(
         );
+        System.out.println("No Autonomous Chosen");
         break;
         
       case ONE:
-        System.out.println("First Autonomous");
+        System.out.println("Stage One Autonomous Selecetd");
         autoCommands = new SequentialCommandGroup(
           new DriveForwardCommand(driveTrain, m_NavxSubsystem)
         );
@@ -60,9 +63,15 @@ public class AutonomousPickerCommand extends SubsystemBase {
     return autoCommands;
   }
 
-
+  // Called once the command ends or is interrupted.
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void end(boolean interrupted) {
+    System.out.println("Autonomous ended");
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 }

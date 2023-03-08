@@ -19,8 +19,8 @@ public final class Constants {
   public static class DrivetrainConstants{
     public static final int LEFT_TOP_MOTOR = 0;
     public static final int LEFT_BOTTOM_MOTOR = 1;
-    public static final int RIGHT_TOP_MOTOR = 2;
-    public static final int RIGHT_BOTTOM_MOTOR = 3;
+    public static final int RIGHT_TOP_MOTOR = 2; // 12 for rockstar
+    public static final int RIGHT_BOTTOM_MOTOR = 3; // 15 for rockstar
 
     public static final double AUTO_FORWARD_SPEED = 0.6;
 
