@@ -26,6 +26,10 @@ public final class Constants {
     public static final double DRIVE_UP_THE_RAMP_kP = 0.008;
     public static final double DRIVE_UP_THE_RAMP_kD = 0.005;
 
+    public static final double TURN_SETPOINT = 180;
+    public static final double TURN_kP = 0.02;
+    public static final double TURN_kI = 0.01;
+
     public static final int GEAR_SHIFTER_SOLENOID = 0;
 
     public static final double LOW_GEAR_ENCODER_PER_INCH = 1449.25;

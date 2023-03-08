@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -41,6 +42,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public double lastTimestamp = 0;
   public double lastError = 0;
+  public double turnErrorSum = 0;
 
   public DrivetrainSubsystem() {
 
@@ -111,6 +113,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightMotorGroup.set(motorOutput * 0.95);
     lastTimestamp = Timer.getFPGATimestamp();
     lastError = pitchError;
+  }
+
+  public void drivetrainTurnAround(double kP, double kI, double yawValue){
+    double turnError = Constants.DrivetrainConstants.TURN_SETPOINT - yawValue;
+    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
+    turnErrorSum += turnError * timeChanges;
+    double motorOutput = MathUtil.clamp((kP * turnError + kI * turnErrorSum), -0.6, 0.6);
+    leftMotorGroup.set(motorOutput);
+    rightMotorGroup.set(-motorOutput);
+    lastTimestamp = Timer.getFPGATimestamp();
   }
 
 
