@@ -125,6 +125,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastTimestamp = Timer.getFPGATimestamp();
   }
 
+  public void resetDrivetrainEncoders(){
+    leftTopMotor.configFactoryDefault();
+    leftBottomMotor.configFactoryDefault();
+    rightTopMotor.configFactoryDefault();
+    rightBottomMotor.configFactoryDefault();
+  }
 
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);

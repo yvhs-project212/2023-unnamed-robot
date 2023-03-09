@@ -28,7 +28,7 @@ public final class Constants {
 
     public static final double TURN_SETPOINT = 180;
     public static final double TURN_kP = 0.005;
-    public static final double TURN_kI = 0.0;
+    public static final double TURN_kI = 0.0001;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;
 

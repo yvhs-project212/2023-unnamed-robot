@@ -74,6 +74,6 @@ public class NavxSubsystem extends SubsystemBase {
   }
 
   public void resetGyro(){
-    
+    gyroScope.reset();
   }
 }

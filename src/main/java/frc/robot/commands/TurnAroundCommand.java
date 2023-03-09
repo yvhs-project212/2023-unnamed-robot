@@ -27,6 +27,8 @@ public class TurnAroundCommand extends CommandBase {
   @Override
   public void initialize() {
     drivetrainSub.gearShiftLow();
+    navxSub.resetGyro();
+    drivetrainSub.resetDrivetrainEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
