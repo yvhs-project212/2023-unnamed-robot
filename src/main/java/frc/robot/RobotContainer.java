@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.AutonomousPickerCommand;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.GearShiftHighCommand;
@@ -67,6 +68,9 @@ public class RobotContainer {
 
   //place autonomous commands here
 
+  //Autonomous File
+  public final ChargingStationBalancingCmdGroup chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -121,6 +125,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() { 
     // An example command will be run in autonomous
-    return autonomousPickerCMD.runAutonomous();
+    return chargingStationBalancingCmdGrp;
   }
 }
