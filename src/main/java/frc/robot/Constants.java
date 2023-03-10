@@ -29,7 +29,7 @@ public final class Constants {
     public static final int ELEVATOR_MOTOR = 6;
 
     public static final int UPPER_ELEVATOR_LIMIT_SWITCH = 0;
-    public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 2;
+    public static final int BOTTOM_ELEVATOR_LIMIT_SWITCH = 1;
   }
 
   public static class ClawConstants{

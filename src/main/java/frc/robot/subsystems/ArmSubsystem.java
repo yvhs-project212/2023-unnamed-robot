@@ -28,6 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor = new WPI_TalonFX(Constants.ArmConstants.ARM_MOTOR);
     armMotor.setNeutralMode(NeutralMode.Brake);
     
+    
 
   }
 
@@ -37,21 +38,23 @@ public class ArmSubsystem extends SubsystemBase {
 
     
     SmartDashboard.putNumber("In Place Arm Position", inPlaceArmMotorPos);
+    SmartDashboard.putNumber("ArmPosition", armMotorPos);
 
     armMotorPos = armMotor.getSelectedSensorPosition();
     if (inPlaceArmMotorPos < armMotorPos) {
-      armMotor.set(-0.4);
+      armMotor.set(-0.35);
     } else if (inPlaceArmMotorPos >= armMotorPos) {
       armMotor.set(0);
     }
-    SmartDashboard.putNumber("ArmPosition", armMotorPos);
+    
   
   }
   
   public void armWithJoystick(double armSpeed) {
     armMotor.set(armSpeed * 0.4);
-    if (armSpeed < 0.03 || armSpeed > -0.03){
+    if (armSpeed > 0.09 || armSpeed < -0.09){
       inPlaceArmMotorPos = armMotorPos; 
+      armMoving = true;
     }
   }
 
