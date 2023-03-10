@@ -49,6 +49,7 @@ public final class Constants {
     public static final int RIGHT_CLAW_ROLLER_MOTOR = 8;
     public static final double CLAW_REMOTE_OUTTAKE_SPEED = 0.5;
     public static final double CLAW_AUTO_OUTTAKE_SPEED = 0.5;
+    public static final int AUTO_CLAW_OUTTAKE_TIMING = 8000;
 
     public static final int CLAW_SOLENOID = 1;
 
@@ -58,8 +59,8 @@ public final class Constants {
   public static class ArmConstants{
     public static final int ARM_MOTOR = 7;
 
-    public static final double ARM_kP = 0.01;
-    public static final double AUTONOMOUS_ARM_SETPOINT = 40;
+    public static final double ARM_kP = 0.008;
+    public static final double AUTONOMOUS_ARM_SETPOINT = 30;
 
     public static final double ARM_MINIMUM_ANGLE = -58;
     public static final double ARM_MAXIMUM_ANGLE = 82;

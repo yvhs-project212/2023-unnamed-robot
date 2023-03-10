@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ClawSubsystem;
@@ -13,38 +14,58 @@ public class AutonomousClawOuttakeCommand extends CommandBase {
   /** Creates a new AutonomousClawOuttakeCommand. */
 
   ClawSubsystem clawSub;
-  double initialTimestamp;
+  int time;
 
   public AutonomousClawOuttakeCommand(ClawSubsystem clawSub) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.clawSub = clawSub;
     addRequirements(clawSub);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initialTimestamp = Timer.getFPGATimestamp();
+    time = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    clawSub.clawRollersOuttake(Constants.ClawConstants.CLAW_AUTO_OUTTAKE_SPEED);
+    for (time = 0; time <= Constants.ClawConstants.AUTO_CLAW_OUTTAKE_TIMING; time++){
+      if(time < Constants.ClawConstants.AUTO_CLAW_OUTTAKE_TIMING){
+        clawSub.clawRollersOuttake(Constants.ClawConstants.CLAW_AUTO_OUTTAKE_SPEED);
+      } else{
+        clawSub.clawRollersStop();
+      }
+    }
+
+    SmartDashboard.putNumber("TIme", time);
+
+    /*if (time < 100) {
+      clawSub.clawRollersOuttake(Constants.ClawConstants.CLAW_AUTO_OUTTAKE_SPEED);
+      time = (time++);
+    } else if (time >= 100) {
+      clawSub.clawRollersOuttake(0);
+      }*/
   }
+  
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    clawSub.clawRollersStop();
+    time = 0;
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Timer.getFPGATimestamp() - initialTimestamp == 8){
+    if(time >= Constants.ClawConstants.AUTO_CLAW_OUTTAKE_TIMING){
       return true;
     } else{
-    return false;
+      return false;
     }
   }
 }

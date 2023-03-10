@@ -41,15 +41,17 @@ public class AutonomousArmCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSub.armMotor.set(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((Constants.ArmConstants.AUTONOMOUS_ARM_SETPOINT - armSub.armMotorPos / Constants.ArmConstants.ENCODER_PER_DEGREE) > 5){
+    if(armSub.armError <= 5){
       return true;
     } else{
-    return false;
+      return false;
     }
   }
 }

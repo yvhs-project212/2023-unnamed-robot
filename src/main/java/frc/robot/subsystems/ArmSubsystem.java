@@ -19,6 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
   public double armMotorPos;
   public double armDown;
   public double armUp;
+  public double armError;
   
   
 
@@ -34,6 +35,9 @@ public class ArmSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     armMotorPos = armMotor.getSelectedSensorPosition();
     SmartDashboard.putNumber("ArmPosition", armMotorPos);
+    SmartDashboard.putNumber("ArmDegrees", armMotorPos / Constants.ArmConstants.ENCODER_PER_DEGREE);
+    armError = Constants.ArmConstants.AUTONOMOUS_ARM_SETPOINT + armMotorPos / Constants.ArmConstants.ENCODER_PER_DEGREE;
+    SmartDashboard.putNumber("ArmError", armError);
   
   }
   
