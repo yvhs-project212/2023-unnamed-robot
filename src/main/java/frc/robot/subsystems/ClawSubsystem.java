@@ -57,7 +57,7 @@ public class ClawSubsystem extends SubsystemBase {
   public void clawIntake(){
     if(clawLimitSwitch.get()){
         clawSolenoid.set(true);
-        clawMotorControllerGroup.set(0.5);
+        clawMotorControllerGroup.set(-0.5);
     } else {
         clawSolenoid.set(false);
         clawMotorControllerGroup.set(0);
