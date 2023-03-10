@@ -41,8 +41,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     //Read the elevator motor encoder position value.
-    elevatorMotorPos = elevatorMotor.getSelectedSensorPosition();
-    SmartDashboard.putNumber("ElevatorMotorPosition", elevatorMotorPos);
+    
   }
 
   @Override
@@ -51,6 +50,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     SmartDashboard.putBoolean("UpperElevatorLimitSwitch", upperLimitSwitch.get());
     SmartDashboard.putBoolean("BottomElevatorLimitSwitch", bottomLimitSwitch.get());
+    elevatorMotorPos = elevatorMotor.getSelectedSensorPosition();
+    SmartDashboard.putNumber("ElevatorMotorPosition", elevatorMotorPos);
   }
 
   //Move elevator by using joystick methods.
