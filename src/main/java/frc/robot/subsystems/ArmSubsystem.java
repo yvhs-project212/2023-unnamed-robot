@@ -42,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setArmAngle(double armAngleSetPoint){
-    armMotor.set(Constants.ArmConstants.ARM_kP * (Constants.ArmConstants.AUTONOMOUS_ARM_SETPOINT * Constants.ArmConstants.ENCODER_PER_DEGREE - armMotorPos));
+    armMotor.set(Constants.ArmConstants.ARM_kP * (armAngleSetPoint - armMotorPos / Constants.ArmConstants.ENCODER_PER_DEGREE));
   }
 
   public void resetArmEncoder(){

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
+import frc.robot.commands.AutoCubeShootingCommandGroup;
 import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.NoAutoCommand;
@@ -68,6 +69,7 @@ public class RobotContainer {
 
   //Autonomous File
   public final Command chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
+  public final Command autoCubeShootingCmdGrp = new AutoCubeShootingCommandGroup(arm, drivetrainSub, clawSub);
   public final Command noAutoComm = new NoAutoCommand(drivetrainSub);
   SendableChooser<Command> autonomouChooser = new SendableChooser<>();
 
@@ -78,6 +80,7 @@ public class RobotContainer {
 
     autonomouChooser.setDefaultOption("No Autonomous", noAutoComm);
     autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);
+    autonomouChooser.addOption("Auto Cube Shooting", autoCubeShootingCmdGrp);
 
     SmartDashboard.putData(autonomouChooser);
 
