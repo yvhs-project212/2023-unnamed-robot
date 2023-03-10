@@ -42,6 +42,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double lastTimestamp = 0;
   public double lastError = 0;
 
+  public Double finalPos;
+
   public DrivetrainSubsystem() {
 
     leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
@@ -101,6 +103,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
     gearShiftSolenoid.set(true);
     leftMotorGroup.set(driveForwardSpeed);
     rightMotorGroup.set(driveForwardSpeed * 0.95);
+  }
+
+  public void driveBackwardsRight(double drivebackwardSpeed) {
+    gearShiftSolenoid.set(true);
+    leftMotorGroup.set(drivebackwardSpeed);
+    rightMotorGroup.set(drivebackwardSpeed * -0.95);
+  }
+
+  public void driveBackwardsLeft(double drivebackwardSpeed) {
+    gearShiftSolenoid.set(true);
+    rightMotorGroup.set(drivebackwardSpeed);
   }
 
   public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){

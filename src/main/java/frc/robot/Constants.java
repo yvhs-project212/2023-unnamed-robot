@@ -23,8 +23,10 @@ public final class Constants {
     public static final int RIGHT_BOTTOM_MOTOR = 3; // 15 for rockstar
 
     public static final double AUTO_FORWARD_SPEED = 0.6;
+    public static final double AUTO_BACKWARDS_SPEED = 0.6;
 
     public static final double DRIVE_FORWARD_SPEED = 0.25;
+    public static final double DRIVE_BACWARDS_SPEED = 0.25;
     public static final double DRIVE_UP_THE_RAMP_kP = 0.008;
     public static final double DRIVE_UP_THE_RAMP_kD = 0.005;
 
