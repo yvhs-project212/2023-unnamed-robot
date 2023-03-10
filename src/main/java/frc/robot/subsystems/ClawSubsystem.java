@@ -67,8 +67,8 @@ public class ClawSubsystem extends SubsystemBase {
     clawSolenoid.set(true);
   }
 
-  public void clawRollersOuttake(){
-    clawMotorControllerGroup.set(-0.5);
+  public void clawRollersOuttake(double clawOuttakeSpeed){
+    clawMotorControllerGroup.set(clawOuttakeSpeed);
   }
 
   public void clawClose(){

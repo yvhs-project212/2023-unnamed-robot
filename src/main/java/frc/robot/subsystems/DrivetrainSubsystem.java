@@ -113,6 +113,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastError = pitchError;
   }
 
+  public void resetDrivetrainEncoders(){
+    leftTopMotor.setSelectedSensorPosition(0);
+    leftBottomMotor.setSelectedSensorPosition(0);
+    rightTopMotor.setSelectedSensorPosition(0);
+    rightBottomMotor.setSelectedSensorPosition(0);
+  }
+
+  public double getDrivetrainSensorAverageValue(){
+    return roundedMotorPos;
+  }
 
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);

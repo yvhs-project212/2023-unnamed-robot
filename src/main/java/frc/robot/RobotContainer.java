@@ -9,11 +9,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import javax.security.sasl.AuthorizeCallback;
+
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
+import frc.robot.commands.NoAutoCommand;
 import frc.robot.commands.GearShiftHighCommand;
 import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.commands.ClawIntakeCommand;
@@ -53,7 +59,7 @@ public class RobotContainer {
   //Claw Files
   private final ClawSubsystem clawSub = new ClawSubsystem();
   private final ClawIntakeCommand clawIntakeComm = new ClawIntakeCommand(clawSub);
-  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub);
+  private final ClawRollersOuttakeCommand clawRollersOuttakeComm = new ClawRollersOuttakeCommand(clawSub, Constants.ClawConstants.CLAW_REMOTE_OUTTAKE_SPEED);
   private final ClawOpenCommand clawOpenComm = new ClawOpenCommand(clawSub);
 
   //Arm Files
@@ -61,12 +67,19 @@ public class RobotContainer {
   private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
 
   //Autonomous File
-  public final ChargingStationBalancingCmdGroup chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
+  public final Command chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
+  public final Command noAutoComm = new NoAutoCommand(drivetrainSub);
+  SendableChooser<Command> autonomouChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    autonomouChooser.setDefaultOption("No Autonomous", noAutoComm);
+    autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);
+
+    SmartDashboard.putData(autonomouChooser);
 
     //Settiing default commands for subsystems.
     elevatorSub.setDefaultCommand(elevatorLiftComm);  
@@ -117,6 +130,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() { 
     // An example command will be run in autonomous
-    return chargingStationBalancingCmdGrp;
+    return autonomouChooser.getSelected();
   }
 }
