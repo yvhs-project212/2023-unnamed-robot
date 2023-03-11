@@ -9,13 +9,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.NavxSubsystem;
 
-public class DriveForwardCommand extends CommandBase {
+public class DriveForwardToTheRampCommand extends CommandBase {
   /** Creates a new DriveForwardCommand. */
 
   DrivetrainSubsystem drivetrainSub;
   NavxSubsystem navxSub;
 
-  public DriveForwardCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
+  public DriveForwardToTheRampCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     
     this.drivetrainSub = drivetrainSub;
@@ -27,7 +27,7 @@ public class DriveForwardCommand extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("Starting Drive Forward!");
-    drivetrainSub.gearShiftLow();
+    drivetrainSub.gearShiftHigh();
     drivetrainSub.resetDrivetrainEncoders();
   }
 

@@ -5,28 +5,52 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.NavxSubsystem;
 
-public class TurnAround extends CommandBase {
-  /** Creates a new TurnAround. */
-  public TurnAround() {
+public class TurnAroundCommand extends CommandBase {
+  /** Creates a new TurnAroundCommand. */
+
+  DrivetrainSubsystem drivetrainSub;
+  NavxSubsystem navxSub;
+
+  public TurnAroundCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    this.drivetrainSub = drivetrainSub;
+    this.navxSub = navxSub;
+    addRequirements(drivetrainSub);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    navxSub.resetGyro();
+    drivetrainSub.resetDrivetrainEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    drivetrainSub.drivetrainTurnAround(Constants.DrivetrainConstants.TURN_kP, 
+    Constants.DrivetrainConstants.TURN_kI, navxSub.getYaw());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drivetrainSub.leftMotorGroup.set(0);
+    drivetrainSub.rightMotorGroup.set(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(navxSub.getYaw() >= (Constants.DrivetrainConstants.TURN_SETPOINT - 10)){
+      return true;
+    }else {
+      return false;
+    }
   }
 }

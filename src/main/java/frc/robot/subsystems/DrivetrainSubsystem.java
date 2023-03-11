@@ -43,6 +43,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public double lastTimestamp = 0;
   public double lastError = 0;
+  public double turnErrorSum = 0;
 
   public DrivetrainSubsystem() {
 
@@ -73,7 +74,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     //Created a solenoid for gear shifting.
     gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.DrivetrainConstants.GEAR_SHIFTER_SOLENOID);
-    gearShiftSolenoid.set(true);
+    gearShiftSolenoid.set(false);
     onHighGear = false;
 
     //Created differential drive by using left motors and right motors.
@@ -122,6 +123,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastError = pitchError;
   }
 
+  public void drivetrainTurnAround(double kP, double kI, double yawValue){
+    double turnError = Constants.DrivetrainConstants.TURN_SETPOINT - yawValue;
+    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
+    turnErrorSum += turnError * timeChanges;
+    double motorOutput = MathUtil.clamp((kP * turnError + kI * turnErrorSum), -0.5, 0.5);
+    leftMotorGroup.set(motorOutput);
+    rightMotorGroup.set(-motorOutput);
+    lastTimestamp = Timer.getFPGATimestamp();
+  }
+
   public void resetDrivetrainEncoders(){
     leftTopMotor.setSelectedSensorPosition(0);
     leftBottomMotor.setSelectedSensorPosition(0);
@@ -133,13 +144,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return roundedMotorPos;
   }
 
-  public void gearShiftLow(){
+  public void gearShiftHigh(){
     gearShiftSolenoid.set(true);
     onHighGear = false;
     System.out.println("Gear Shifted Low");
   }
 
-  public void gearShiftHigh(){
+  public void gearShiftLow(){
     gearShiftSolenoid.set(false);
     onHighGear = true;
     System.out.println("Gear Shifted High");

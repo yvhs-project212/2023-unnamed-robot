@@ -22,7 +22,7 @@ public class NoAutoCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrainSub.gearShiftLow();
+    drivetrainSub.gearShiftHigh();
     drivetrainSub.resetDrivetrainEncoders();
   }
 
