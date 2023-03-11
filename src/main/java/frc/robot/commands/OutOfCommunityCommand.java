@@ -30,7 +30,8 @@ public class OutOfCommunityCommand extends CommandBase {
     drivetrainSub.onChargeStation = false;
     drivetrainSub.outOfCommunity = false;
     drivetrainSub.startingYaw = navxSub.getYaw();
-    
+    if (navxS)
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
