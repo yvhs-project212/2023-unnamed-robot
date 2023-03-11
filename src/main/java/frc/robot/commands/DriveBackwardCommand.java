@@ -40,13 +40,14 @@ public class DriveBackwardCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    drivetrainSub.leftMotorGroup.set(0);
+    drivetrainSub.rightMotorGroup.set(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((drivetrainSub.roundedMotorPos / Constants.DrivetrainConstants.HIGH_GEAR_ENCODER_PER_INCH) >= Constants.DrivetrainConstants.DRIVE_BACKWARD_SETPOINT){
+    if((Math.abs(drivetrainSub.roundedMotorPos / Constants.DrivetrainConstants.HIGH_GEAR_ENCODER_PER_INCH)) >= Constants.DrivetrainConstants.DRIVE_BACKWARD_SETPOINT){
       return true;
     }else{
       return false;

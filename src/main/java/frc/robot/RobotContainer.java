@@ -21,6 +21,7 @@ import frc.robot.commands.AutoCubeShootingCommandGroup;
 import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.NoAutoCommand;
+import frc.robot.commands.ScoreCubeAndBalancingAutonomousCommandGroup;
 import frc.robot.commands.GearShiftHighCommand;
 import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.commands.ClawIntakeCommand;
@@ -70,6 +71,7 @@ public class RobotContainer {
   //Autonomous File
   public final Command chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
   public final Command autoCubeShootingCmdGrp = new AutoCubeShootingCommandGroup(arm, drivetrainSub, clawSub);
+  public final Command cubeAndBalanceCmdGrp = new ScoreCubeAndBalancingAutonomousCommandGroup(drivetrainSub, arm, m_NavxSubsystem, clawSub);
   public final Command noAutoComm = new NoAutoCommand(drivetrainSub);
   SendableChooser<Command> autonomouChooser = new SendableChooser<>();
 
@@ -81,6 +83,7 @@ public class RobotContainer {
     autonomouChooser.setDefaultOption("No Autonomous", noAutoComm);
     autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);
     autonomouChooser.addOption("Auto Cube Shooting", autoCubeShootingCmdGrp);
+    autonomouChooser.addOption("Cube&Balance", cubeAndBalanceCmdGrp);
 
     SmartDashboard.putData(autonomouChooser);
 
