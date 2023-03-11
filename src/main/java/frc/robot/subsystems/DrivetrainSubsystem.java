@@ -49,6 +49,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public boolean onChargeStation;
   public boolean outOfCommunity;
+  public boolean secondstage;
 
   public DrivetrainSubsystem() {
 
@@ -122,6 +123,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     gearShiftSolenoid.set(true);
     rightMotorGroup.set(driveBackwardsSpeed);
     leftMotorGroup.set(driveBackwardsSpeed * 0.95);
+  }
+
+  public void turnRobotRight(double driveBackwardsSpeed, double driveForwardSpeed){
+    gearShiftSolenoid.set(true);
+    leftMotorGroup.set(driveForwardSpeed);
+    rightMotorGroup.set(driveBackwardsSpeed);
   }
 
 
