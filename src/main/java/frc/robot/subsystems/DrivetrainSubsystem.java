@@ -42,6 +42,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public double lastTimestamp = 0;
   public double lastError = 0;
 
+  public double recentPosition;
+  public double startingYaw;
+
+  public boolean onChargeStation;
+  public boolean outOfCommunity;
+
   public DrivetrainSubsystem() {
 
     leftTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_TOP_MOTOR);
@@ -102,6 +108,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftMotorGroup.set(driveForwardSpeed);
     rightMotorGroup.set(driveForwardSpeed * 0.95);
   }
+
+  public void driveBackwards(double driveBackwardsSpeed){
+    gearShiftSolenoid.set(true);
+    rightMotorGroup.set(driveBackwardsSpeed);
+    leftMotorGroup.set(driveBackwardsSpeed * 0.95);
+  }
+
 
   public void chargingStationBalancingWithPID(double kP, double kD, double pitchError){
     double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
