@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -56,7 +57,7 @@ public class ClawSubsystem extends SubsystemBase {
   public void clawIntake(){
     if(clawLimitSwitch.get()){
         clawSolenoid.set(true);
-        clawMotorControllerGroup.set(0.5);
+        clawMotorControllerGroup.set(-0.5);
     } else {
         clawSolenoid.set(false);
         clawMotorControllerGroup.set(0);
@@ -78,4 +79,5 @@ public class ClawSubsystem extends SubsystemBase {
   public void clawRollersStop(){
     clawMotorControllerGroup.set(0);
   }
+
 }
