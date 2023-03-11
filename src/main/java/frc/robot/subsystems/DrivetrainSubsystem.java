@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -48,6 +50,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.LEFT_BOTTOM_MOTOR);
     rightTopMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_TOP_MOTOR);
     rightBottomMotor = new WPI_TalonFX(Constants.DrivetrainConstants.RIGHT_BOTTOM_MOTOR);
+
+    //Setting output limits for motors.
+    leftTopMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 20, 1));
+    leftBottomMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 20, 1));
+    rightTopMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 20, 1));
+    rightBottomMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 20, 1));
+
 
     //Group two left motors together and set their neutral mode as brake mode.
     leftTopMotor.setInverted(true);
@@ -113,6 +122,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastError = pitchError;
   }
 
+  public void resetDrivetrainEncoders(){
+    leftTopMotor.setSelectedSensorPosition(0);
+    leftBottomMotor.setSelectedSensorPosition(0);
+    rightTopMotor.setSelectedSensorPosition(0);
+    rightBottomMotor.setSelectedSensorPosition(0);
+  }
+
+  public double getDrivetrainSensorAverageValue(){
+    return roundedMotorPos;
+  }
 
   public void gearShiftLow(){
     gearShiftSolenoid.set(true);

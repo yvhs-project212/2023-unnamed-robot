@@ -4,18 +4,23 @@
 
 package frc.robot.commands;
 
+import java.io.Console;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ClawSubsystem;
 
 public class ClawRollersOuttakeCommand extends CommandBase {
   /** Creates a new ClawOuttakeCommand. */
   
   ClawSubsystem clawSub;
+  double clawOuttakeSpeed;
 
-  public ClawRollersOuttakeCommand(ClawSubsystem clawSub) {
+  public ClawRollersOuttakeCommand(ClawSubsystem clawSub, double clawOuttakeSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.clawSub = clawSub;
+    this.clawOuttakeSpeed = clawOuttakeSpeed;
     addRequirements(clawSub);
 
   }
@@ -27,7 +32,7 @@ public class ClawRollersOuttakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    clawSub.clawRollersOuttake();
+    clawSub.clawRollersOuttake(clawOuttakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

@@ -4,52 +4,54 @@
 
 package frc.robot.commands;
 
+import java.io.Console;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.NavxSubsystem;
 
-public class DriveForwardCommand extends CommandBase {
-  /** Creates a new DriveForwardCommand. */
+public class AutonomousArmCommand extends CommandBase {
+  /** Creates a new AutonomousArmCommand. */
 
+  ArmSubsystem armSub;
   DrivetrainSubsystem drivetrainSub;
-  NavxSubsystem navxSub;
 
-  public DriveForwardCommand(DrivetrainSubsystem drivetrainSub, NavxSubsystem navxSub) {
+  public AutonomousArmCommand(ArmSubsystem armSub, DrivetrainSubsystem drivetrainSub) {
     // Use addRequirements() here to declare subsystem dependencies.
-    
+
+    this.armSub = armSub;
     this.drivetrainSub = drivetrainSub;
-    this.navxSub = navxSub;
-    addRequirements(drivetrainSub);
+    addRequirements(armSub);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Starting Drive Forward!");
     drivetrainSub.gearShiftLow();
-    drivetrainSub.resetDrivetrainEncoders();
+    armSub.resetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrainSub.driveForward(Constants.DrivetrainConstants.DRIVE_FORWARD_SPEED);
+    armSub.setArmAngle(-Constants.ArmConstants.AUTONOMOUS_ARM_SETPOINT);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Drive Forward Ended!");
+    armSub.armMotor.set(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(navxSub.getPitch() >= 10){
+    if(armSub.armError <= 5){
       return true;
     } else{
-    return false;
+      return false;
     }
   }
 }
