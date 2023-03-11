@@ -30,7 +30,9 @@ public class OutOfCommunityCommand extends CommandBase {
     drivetrainSub.onChargeStation = false;
     drivetrainSub.outOfCommunity = false;
     drivetrainSub.startingYaw = navxSub.getYaw();
-    if (navxS)
+    if (navxSub.getYaw() <!= (drivetrainSub.startingYaw + 15.0)) {
+
+    }
 
   }
 
