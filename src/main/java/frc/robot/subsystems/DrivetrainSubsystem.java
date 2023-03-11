@@ -96,6 +96,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     roundedMotorPos = Math.floor(averageMotorPos + 0.5);
 
     SmartDashboard.putNumber("dtPos", roundedMotorPos);
+    SmartDashboard.putNumber("dtPos(Inch)", roundedMotorPos / Constants.DrivetrainConstants.HIGH_GEAR_ENCODER_PER_INCH);
     SmartDashboard.putBoolean("Gear", onHighGear);
 
   }
