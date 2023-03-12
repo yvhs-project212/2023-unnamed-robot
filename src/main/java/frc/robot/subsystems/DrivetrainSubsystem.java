@@ -50,7 +50,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public boolean onChargeStation;
   public boolean outOfCommunity;
-  public boolean secondstage;
+  public boolean outOfCommunityFinished;
+  public boolean turnAndLeaveCommunity;
+  public boolean turnAndLeaveCommunityFinished;
+
 
   public DrivetrainSubsystem() {
 

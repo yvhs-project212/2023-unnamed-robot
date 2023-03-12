@@ -27,19 +27,42 @@ public class TurnAndLeaveCommunityCommand extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("out of community command started");
+    navxSub.resetGyro();
+    drivetrainSub.turnAndLeaveCommunity = false;
+    drivetrainSub.recentPosition = drivetrainSub.leftTopMotorPos;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (navxSub.getYaw() != 180 && drivetrainSub.turnAndLeaveCommunity == false) {
+      drivetrainSub.turnRobotRight(Constants.DrivetrainConstants.DRIVE_BACKWARDS_SPEED, Constants.DrivetrainConstants.DRIVE_FORWARD_SPEED);
+    } else if (navxSub.getYaw() >= 180 && drivetrainSub.turnAndLeaveCommunity == false) {
+      drivetrainSub.turnRobotRight(0, 0);
+      drivetrainSub.turnAndLeaveCommunity = true;
+    }
+
+    if (drivetrainSub.turnAndLeaveCommunity == true && drivetrainSub.leftTopMotorPos != (drivetrainSub.recentPosition + 38329.9)) {
+      drivetrainSub.driveForward(Constants.DrivetrainConstants.DRIVE_FORWARD_SPEED);
+    } else if (drivetrainSub.turnAndLeaveCommunity == true && drivetrainSub.leftTopMotorPos >= (drivetrainSub.recentPosition + 38329.9)) {
+      drivetrainSub.driveForward(0);
+      drivetrainSub.turnAndLeaveCommunityFinished = true;
+    }
+  } 
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("Turn and leave community is finished");
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (drivetrainSub.turnAndLeaveCommunityFinished == true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

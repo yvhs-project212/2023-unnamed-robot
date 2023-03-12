@@ -36,18 +36,18 @@ public class OutOfCommunityCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (drivetrainSub.secondstage == false) {
+    if (drivetrainSub.outOfCommunity == false) {
       if (navxSub.getYaw() < (drivetrainSub.startingYaw + 15.0)) {
         drivetrainSub.turnRobotRight(Constants.DrivetrainConstants.DRIVE_BACKWARDS_SPEED, Constants.DrivetrainConstants.DRIVE_FORWARD_SPEED);
       } else if (navxSub.getYaw() >= (drivetrainSub.startingYaw + 15.0)) {
         drivetrainSub.turnRobotRight(0, 0);
-        drivetrainSub.secondstage = true;
+        drivetrainSub.outOfCommunity = true;
       }
     } else {
       System.out.println("Not turning 15 degrees using nav x or turning 15 degrees is over");
     }
 
-    if (drivetrainSub.secondstage == true) {
+    if (drivetrainSub.outOfCommunity == true) {
       if (drivetrainSub.onChargeStation == false && navxSub.getPitch() > -5) {
         drivetrainSub.driveBackwards(Constants.DrivetrainConstants.DRIVE_BACKWARDS_SPEED);
       } else if (navxSub.getPitch() <-5) {
@@ -57,9 +57,10 @@ public class OutOfCommunityCommand extends CommandBase {
       } else if (drivetrainSub.onChargeStation == true && navxSub.getPitch() > -5) {
         if (drivetrainSub.leftBottomMotorPos < drivetrainSub.recentPosition) {
           drivetrainSub.driveBackwards(Constants.DrivetrainConstants.DRIVE_BACKWARDS_SPEED);
-        } else if (drivetrainSub.leftBottomMotorPos >= (drivetrainSub.recentPosition + 547.57)) {
+        } else if (drivetrainSub.leftBottomMotorPos >= (drivetrainSub.recentPosition + 10951.4)) {
           drivetrainSub.driveBackwards(0);
           drivetrainSub.outOfCommunity = true;
+          drivetrainSub.outOfCommunityFinished = true;
         }
       }
     } else {
@@ -77,7 +78,7 @@ public class OutOfCommunityCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (drivetrainSub.outOfCommunity == true) {
+    if (drivetrainSub.outOfCommunityFinished == true) {
       return true;
     } else {
       return false;
