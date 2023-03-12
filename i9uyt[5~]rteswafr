@@ -1,0 +1,29 @@
+[1mdiff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java[m
+[1mindex 446f837..9614476 100644[m
+[1m--- a/src/main/java/frc/robot/RobotContainer.java[m
+[1m+++ b/src/main/java/frc/robot/RobotContainer.java[m
+[36m@@ -21,6 +21,8 @@[m [mimport frc.robot.commands.AutoCubeShootingCommandGroup;[m
+ import frc.robot.commands.ChargingStationBalancingCmdGroup;[m
+ import frc.robot.commands.ElevatorLiftWithjoystickCommand;[m
+ import frc.robot.commands.NoAutoCommand;[m
+[32m+[m[32mimport frc.robot.commands.OutOfCommunityCommand;[m
+[32m+[m[32mimport frc.robot.commands.TurnAndLeaveCommunityCommand;[m
+ import frc.robot.commands.GearShiftHighCommand;[m
+ import frc.robot.commands.GearShiftLowCommand;[m
+ import frc.robot.commands.ClawIntakeCommand;[m
+[36m@@ -71,6 +73,7 @@[m [mpublic class RobotContainer {[m
+   public final Command chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);[m
+   public final Command autoCubeShootingCmdGrp = new AutoCubeShootingCommandGroup(arm, drivetrainSub, clawSub);[m
+   public final Command noAutoComm = new NoAutoCommand(drivetrainSub);[m
+[32m+[m[32m  public final Command OutofCommunityCommand = new OutOfCommunityCommand(drivetrainSub, m_NavxSubsystem);[m
+   SendableChooser<Command> autonomouChooser = new SendableChooser<>();[m
+ [m
+   /** The container for the robot. Contains subsystems, OI devices, and commands. */[m
+[36m@@ -81,6 +84,7 @@[m [mpublic class RobotContainer {[m
+     autonomouChooser.setDefaultOption("No Autonomous", noAutoComm);[m
+     autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);[m
+     autonomouChooser.addOption("Auto Cube Shooting", autoCubeShootingCmdGrp);[m
+[32m+[m[32m    autonomouChooser.addOption("Out of community ", OutofCommunityCommand);[m
+ [m
+     SmartDashboard.putData(autonomouChooser);[m
+ [m
