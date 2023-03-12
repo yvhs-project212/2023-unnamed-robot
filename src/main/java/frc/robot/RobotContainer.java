@@ -74,6 +74,7 @@ public class RobotContainer {
   public final Command autoCubeShootingCmdGrp = new AutoCubeShootingCommandGroup(arm, drivetrainSub, clawSub);
   public final Command noAutoComm = new NoAutoCommand(drivetrainSub);
   public final Command OutofCommunityCommand = new OutOfCommunityCommand(drivetrainSub, m_NavxSubsystem);
+  public final Command TurnAndLeaveCommunityCommand = new TurnAndLeaveCommunityCommand(drivetrainSub, m_NavxSubsystem);
   SendableChooser<Command> autonomouChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -85,6 +86,7 @@ public class RobotContainer {
     autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);
     autonomouChooser.addOption("Auto Cube Shooting", autoCubeShootingCmdGrp);
     autonomouChooser.addOption("Out of community ", OutofCommunityCommand);
+    autonomouChooser.addOption("Turn 180 degrees and leave", TurnAndLeaveCommunityCommand);
 
     SmartDashboard.putData(autonomouChooser);
 

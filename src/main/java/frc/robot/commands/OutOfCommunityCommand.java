@@ -57,18 +57,15 @@ public class OutOfCommunityCommand extends CommandBase {
       } else if (drivetrainSub.onChargeStation == true && navxSub.getPitch() > -5) {
         if (drivetrainSub.leftBottomMotorPos < drivetrainSub.recentPosition) {
           drivetrainSub.driveBackwards(Constants.DrivetrainConstants.DRIVE_BACKWARDS_SPEED);
-        } else if (drivetrainSub.leftBottomMotorPos >= (drivetrainSub.recentPosition + 4347.75)) {
+        } else if (drivetrainSub.leftBottomMotorPos >= (drivetrainSub.recentPosition + 547.57)) {
           drivetrainSub.driveBackwards(0);
           drivetrainSub.outOfCommunity = true;
         }
       }
     } else {
       System.out.println(" not running out of community code");
+      drivetrainSub.driveBackwards(0);
     }
-
-    
-
-    
   }
 
   // Called once the command ends or is interrupted.
