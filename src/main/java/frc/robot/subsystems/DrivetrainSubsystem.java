@@ -43,6 +43,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public double lastTimestamp = 0;
   public double lastError = 0;
+  public double turnErrorSum = 0;
 
   public double recentPosition;
   public double startingYaw;
@@ -80,7 +81,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     //Created a solenoid for gear shifting.
     gearShiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.DrivetrainConstants.GEAR_SHIFTER_SOLENOID);
-    gearShiftSolenoid.set(true);
+    gearShiftSolenoid.set(false);
     onHighGear = false;
 
     //Created differential drive by using left motors and right motors.
@@ -102,6 +103,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     roundedMotorPos = Math.floor(averageMotorPos + 0.5);
 
     SmartDashboard.putNumber("dtPos", roundedMotorPos);
+    SmartDashboard.putNumber("dtPos(Inch)", roundedMotorPos / Constants.DrivetrainConstants.HIGH_GEAR_ENCODER_PER_INCH);
     SmartDashboard.putBoolean("Gear", onHighGear);
 
   }
@@ -153,13 +155,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return roundedMotorPos;
   }
 
-  public void gearShiftLow(){
+  public void gearShiftHigh(){
     gearShiftSolenoid.set(true);
     onHighGear = false;
     System.out.println("Gear Shifted Low");
   }
 
-  public void gearShiftHigh(){
+  public void gearShiftLow(){
     gearShiftSolenoid.set(false);
     onHighGear = true;
     System.out.println("Gear Shifted High");

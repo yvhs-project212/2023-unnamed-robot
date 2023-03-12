@@ -25,7 +25,7 @@ public final class Constants {
     public static final double DRIVE_FORWARD_SPEED = 0.25;
     public static final double DRIVE_BACKWARDS_SPEED = 0.25;
     public static final double DRIVE_SLOWLY_SPEED = 0.15;
-    public static final double DRIVE_UP_THE_RAMP_kP = 0.01;
+    public static final double DRIVE_UP_THE_RAMP_kP = 0.0125;
     public static final double DRIVE_UP_THE_RAMP_kD = 0.005;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;

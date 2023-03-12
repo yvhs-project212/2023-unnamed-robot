@@ -29,7 +29,7 @@ public class AutonomousArmCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrainSub.gearShiftLow();
+    drivetrainSub.gearShiftHigh();
     armSub.resetArmEncoder();
   }
 
