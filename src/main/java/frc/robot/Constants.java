@@ -23,15 +23,8 @@ public final class Constants {
     public static final int RIGHT_BOTTOM_MOTOR = 3;
 
     public static final double DRIVE_FORWARD_SPEED = 0.25;
-    public static final double DRIVE_BACKWARD_SPEED = -0.25;
-    public static final double DRIVE_BACKWARD_SETPOINT = 12;
-    public static final double DRIVE_UP_THE_RAMP_kP = 0.011;
+    public static final double DRIVE_UP_THE_RAMP_kP = 0.0125;
     public static final double DRIVE_UP_THE_RAMP_kD = 0.005;
-  
-
-    public static final double TURN_SETPOINT = 160;
-    public static final double TURN_kP = 0.005;
-    public static final double TURN_kI = 0.0001;
 
     public static final int GEAR_SHIFTER_SOLENOID = 0;
 

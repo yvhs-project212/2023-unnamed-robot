@@ -27,6 +27,7 @@ public class DriveForwardToTheRampCommand extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("Starting Drive Forward!");
+    drivetrainSub.resetDrivetrainEncoders();
     drivetrainSub.gearShiftHigh();
     drivetrainSub.resetDrivetrainEncoders();
   }

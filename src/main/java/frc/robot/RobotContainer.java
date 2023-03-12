@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmCommands;
 import frc.robot.commands.AutoCubeShootingCommandGroup;
+import frc.robot.commands.AutonomousArmCommand;
 import frc.robot.commands.ChargingStationBalancingCmdGroup;
 import frc.robot.commands.ElevatorLiftWithjoystickCommand;
 import frc.robot.commands.NoAutoCommand;
-import frc.robot.commands.ScoreCubeAndBalancingAutonomousCommandGroup;
 import frc.robot.commands.GearShiftHighCommand;
 import frc.robot.commands.GearShiftLowCommand;
 import frc.robot.commands.ClawIntakeCommand;
@@ -67,11 +67,11 @@ public class RobotContainer {
   //Arm Files
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ArmCommands armWithDPadsCmd = new ArmCommands(arm);
+  private final AutonomousArmCommand autoArmComm = new AutonomousArmCommand(arm, drivetrainSub);
 
   //Autonomous File
   public final Command chargingStationBalancingCmdGrp = new ChargingStationBalancingCmdGroup(drivetrainSub, m_NavxSubsystem);
   public final Command autoCubeShootingCmdGrp = new AutoCubeShootingCommandGroup(arm, drivetrainSub, clawSub);
-  public final Command cubeAndBalanceCmdGrp = new ScoreCubeAndBalancingAutonomousCommandGroup(drivetrainSub, arm, m_NavxSubsystem, clawSub);
   public final Command noAutoComm = new NoAutoCommand(drivetrainSub);
   SendableChooser<Command> autonomouChooser = new SendableChooser<>();
 
@@ -83,7 +83,6 @@ public class RobotContainer {
     autonomouChooser.setDefaultOption("No Autonomous", noAutoComm);
     autonomouChooser.addOption("Auto Balancing", chargingStationBalancingCmdGrp);
     autonomouChooser.addOption("Auto Cube Shooting", autoCubeShootingCmdGrp);
-    autonomouChooser.addOption("Cube&Balance", cubeAndBalanceCmdGrp);
 
     SmartDashboard.putData(autonomouChooser);
 
@@ -127,6 +126,11 @@ public class RobotContainer {
     //Drivetrain Gear Shift Low
     final JoystickButton gearShiftLow = new JoystickButton(driverController, XboxController.Button.kB.value);
     gearShiftLow.whileTrue(gearShiftLowComm);
+
+    //Arm Binds
+    //Set Arm To Position
+    final JoystickButton armAimAtHigh = new JoystickButton(operatorController, XboxController.Button.kA.value);
+    armAimAtHigh.whileTrue(autoArmComm);
   }
 
   /**

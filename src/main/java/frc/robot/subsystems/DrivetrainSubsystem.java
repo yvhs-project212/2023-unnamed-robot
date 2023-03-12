@@ -124,16 +124,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     lastError = pitchError;
   }
 
-  public void drivetrainTurnAround(double kP, double kI, double yawValue){
-    double turnError = Constants.DrivetrainConstants.TURN_SETPOINT - yawValue;
-    double timeChanges = Timer.getFPGATimestamp() - lastTimestamp;
-    turnErrorSum += turnError * timeChanges;
-    double motorOutput = MathUtil.clamp((kP * turnError + kI * turnErrorSum), -0.5, 0.5);
-    leftMotorGroup.set(motorOutput);
-    rightMotorGroup.set(-motorOutput);
-    lastTimestamp = Timer.getFPGATimestamp();
-  }
-
   public void resetDrivetrainEncoders(){
     leftTopMotor.setSelectedSensorPosition(0);
     leftBottomMotor.setSelectedSensorPosition(0);
